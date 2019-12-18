@@ -1,19 +1,14 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import Inventory from "./components/inventory/Inventory.component"
+import Inventory from "./components/inventory/Inventory.component";
+import Navbar from "./components/Navbar/Navbar.component";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>logo</p>
-        <nav>
-          <ul>
-          <li><a href="#">view inventory</a></li>
-          <li><a href="#">add item</a></li>
-          </ul>
-        </nav>
+        <Navbar />
       </header>
 
       <main>
