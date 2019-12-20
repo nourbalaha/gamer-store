@@ -4,7 +4,7 @@ import Item from "../Item/Item.component"
 
 import inventory from "../../data/inventory"
 
-import "../inventory/Inventory.style.scss"
+import "../Inventory/Inventory.style.scss"
 
 export default class Inventory extends Component {
     render() {
