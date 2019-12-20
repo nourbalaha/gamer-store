@@ -3,22 +3,25 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // border: 1px black solid;
+    box-shadow: 0px 0px 3px 0.25px gray;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     text-align: center;
     overflow: hidden;
     width: 200px;
+    height: auto;
     margin: 20px 30px;
     background-color: #eee;
+    cursor: pointer;
 
     &:hover{
-        box-shadow: 0px 0px 5px 1px gray;
+        box-shadow: 0px 0px 3px 1px gray;
     }
 
     .item-image {
-        width: 200px;
-        height: 300px;
+        width: 95%;
+        height: auto;
+        padding: 5px;
     }
     .item-name{
         font-weight: bold;
