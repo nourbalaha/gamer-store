@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
+import "../Navbar/Navbar.style.scss"
 
 export default class Navbar extends Component {
   render() {
@@ -7,10 +10,10 @@ export default class Navbar extends Component {
         <p>Game Store</p>
         <ul>
           <li>
-            <a href="#">view inventory</a>
+            <Link to="/">view inventory</Link>
           </li>
           <li>
-            <a href="#">add item</a>
+            <Link to="/">add item</Link>
           </li>
         </ul>
       </nav>
