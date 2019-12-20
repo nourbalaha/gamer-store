@@ -26,7 +26,7 @@ const inventory = [
         name:"The Legend of Zelda: Breath of the Wild",
         quantity: 5,
         price: 60,
-        image: "https://images-na.ssl-images-amazon.com/images/I/81H2HE6rdcL._SL1455_.jpg",
+        image: "https://www.virginmegastore.ae/medias/sys_master/root/hec/h82/9026711650334/The-Legend-of-Zelda-Breath-of-the-Wild-201714-Detail.png",
         platform: "Nintendo Switch"
     },
 ];
