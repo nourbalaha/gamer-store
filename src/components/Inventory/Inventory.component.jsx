@@ -12,7 +12,8 @@ export default class Inventory extends Component {
 
     this.state = {
       inventory,
-      search: ""
+      search: "",
+      platform: "All Platforms"
     };
   }
 
@@ -20,15 +21,55 @@ export default class Inventory extends Component {
     this.setState({ search: event.target.value });
   };
 
+  handleClick = platform => {
+    this.setState({ platform });
+  };
+
   render() {
+    const items = this.state.inventory.filter(item => {
+      if (this.state.search === "") {
+        if (this.state.platform === "All Platforms") {
+          return item;
+        } else {
+          return item.platform === this.state.platform;
+        }
+      } else {
+        if (this.state.platform === "All Platforms") {
+          return item.name.includes(this.state.search);
+        } else {
+          return (
+            item.name.includes(this.state.search) &&
+            item.platform === this.state.platform
+          );
+        }
+      }
+    });
     return (
       <div className="wrapper">
         <div className="search-section">
-            <div className="platforms">
-                <span className="platform all">All Platforms</span>
-                <span className="platform playstation">Playstation 4</span>
-                <span className="platform xbox">Xbox One</span>
-            </div>
+          <p>
+            {this.state.platform}
+          </p>
+          <div className="platforms">
+            <span
+              className="platform all"
+              onClick={() => this.handleClick("All Platforms")}
+            >
+              All Platforms
+            </span>
+            <span
+              className="platform playstation"
+              onClick={() => this.handleClick("Playstation 4")}
+            >
+              Playstation 4
+            </span>
+            <span
+              className="platform xbox"
+              onClick={() => this.handleClick("Xbox One")}
+            >
+              Xbox One
+            </span>
+          </div>
           <input
             id="search"
             name="search"
@@ -39,31 +80,17 @@ export default class Inventory extends Component {
           />
         </div>
         <div className="inventory">
-          {this.state.search === ""
-            ? this.state.inventory.map(item =>
-                <Item
-                  key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  quantity={item.quantity}
-                  price={item.price}
-                  image={item.image}
-                  platform={item.platform}
-                />
-              )
-            : this.state.inventory
-                .filter(item => item.name.startsWith(this.state.search))
-                .map(item =>
-                  <Item
-                    key={item.id}
-                    id={item.id}
-                    name={item.name}
-                    quantity={item.quantity}
-                    price={item.price}
-                    image={item.image}
-                    platform={item.platform}
-                  />
-                )}
+          {items.map(item =>
+            <Item
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              quantity={item.quantity}
+              price={item.price}
+              image={item.image}
+              platform={item.platform}
+            />
+          )}
         </div>
       </div>
     );
