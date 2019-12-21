@@ -16,18 +16,18 @@ const inventory = [
         platform: "Playstation 4"
     },    {
         id: 3,
-        name:"Dark Souls III The Fire Fades Edition",
+        name:"Dark Souls III",
         quantity: 5,
         price: 40,
         image: "https://images-na.ssl-images-amazon.com/images/I/51zjwZ8Tq-L.jpg",
         platform: "Playstation 4"
     },    {
         id: 4,
-        name:"The Legend of Zelda: Breath of the Wild",
+        name:"Grand Theft Auto V",
         quantity: 5,
         price: 60,
-        image: "https://www.virginmegastore.ae/medias/sys_master/root/hec/h82/9026711650334/The-Legend-of-Zelda-Breath-of-the-Wild-201714-Detail.png",
-        platform: "Nintendo Switch"
+        image: "https://images-na.ssl-images-amazon.com/images/I/814zd8nG6IL._SL1266_.jpg",
+        platform: "Xbox One"
     },
 ];
 
