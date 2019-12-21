@@ -5,5 +5,44 @@
         justify-content: center;
         align-items: center;
         margin: 0 10vw;
+        margin-top: 40px;
+    }
+    .search-section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #ddd;
+
+        .platforms{
+            padding: 15px;
+            .platform{
+                color: #eee;
+                background-color: #777;
+                border-radius: 3px;
+                padding: 5px;
+                margin: 5px;
+                cursor: pointer;
+                &:hover{
+                    background-color: #999;
+                }
+            }
+            .all{
+                border: 2px solid #fff;
+            }
+            .xbox{
+                border: 2px solid #00AC00;
+            }
+            .playstation{
+                border: 2px solid #004DA7;
+            }
+        }
+
+        #search{
+            width: 70vw;
+            height: 30px;
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
     }
 }
