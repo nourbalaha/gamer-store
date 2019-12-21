@@ -1,0 +1,14 @@
+.selected-item{
+    display: flex;
+    min-height: 84vh;
+    justify-content: center;
+    align-items: center;
+
+    .item-image {
+        height: 300px;
+        margin-right: 50px;
+    }
+    .details{
+        text-align: left;
+    }
+}
