@@ -12,10 +12,10 @@ class Navbar extends Component {
         <img className="logo" src={logo} alt="logo" onClick={()=>this.props.history.push("/")}/>
         <ul>
           <li>
-            <span className="nav-item" onClick={()=>this.props.history.push("/")}>INVENTORY</span>
+            <span className="nav-item" onClick={()=>this.props.history.push("/inventory")}>INVENTORY</span>
           </li>
           <li>
-            <span className="nav-item" onClick={()=>this.props.history.push("/")}>ADD ITEM</span>
+            <span className="nav-item" onClick={()=>this.props.history.push("/additem")}>ADD ITEM</span>
           </li>
         </ul>
       </nav>
