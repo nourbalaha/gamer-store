@@ -1,22 +1,26 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
+import logo from "../../assets/Logo white.png"
 
 import "../Navbar/Navbar.style.scss"
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   render() {
     return (
       <nav className="navbar">
-        <p>Game Store</p>
+        <img className="logo" src={logo} alt="logo" onClick={()=>this.props.history.push("/")}/>
         <ul>
           <li>
-            <Link to="/">view inventory</Link>
+            <span className="nav-item" onClick={()=>this.props.history.push("/")}>INVENTORY</span>
           </li>
           <li>
-            <Link to="/">add item</Link>
+            <span className="nav-item" onClick={()=>this.props.history.push("/")}>ADD ITEM</span>
           </li>
         </ul>
       </nav>
     );
   }
 }
+
+export default withRouter(Navbar);
