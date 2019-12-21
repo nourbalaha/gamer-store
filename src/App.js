@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 
@@ -18,16 +18,7 @@ function App() {
 
         <main>
           <Switch>
-            <Route exact path="/">
-              <p>platform</p>
-              <input
-                id="search"
-                name="search"
-                type="text"
-                placeholder="search"
-              />
-              <Inventory />
-            </Route>
+            <Route exact path="/" component={Inventory} />>
             <Route path="/:id" component={SelectedItem} />
           </Switch>
         </main>
