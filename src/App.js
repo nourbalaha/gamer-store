@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 
-import Inventory from "./components/Inventory/Inventory.component";
+import Inventory from "./pages/Inventory/Inventory.component";
+import SelectedItem from "./pages/SelectedItem/SelectedItem.component"
+import AddItem from "./pages/AddItem/AddItem.component"
+
 import Navbar from "./components/Navbar/Navbar.component";
-import SelectedItem from "./components/SelectedItem/SelectedItem.component"
 import Footer from "./components/Footer/Footer.component"
 
 function App() {
@@ -18,8 +20,10 @@ function App() {
 
         <main>
           <Switch>
-            <Route exact path="/" component={Inventory} />>
-            <Route path="/:id" component={SelectedItem} />
+            <Route exact path="/" component={Inventory} />
+            <Route exact path="/inventory" component={Inventory} />
+            <Route path="/additem" component={AddItem} />
+            <Route path="/inventory/:id" component={SelectedItem} />
           </Switch>
         </main>
 
