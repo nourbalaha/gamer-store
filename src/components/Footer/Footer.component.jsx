@@ -6,7 +6,7 @@ export default class Footer extends Component {
     render() {
         return (
             <div className="footer">
-                <p>© 2019 Nour Balaha</p>
+                <p>Made with️ <span role="img" aria-label="love">❤️</span> in Tokyo © 2019 Nour Balaha</p>
             </div>
         )
     }
