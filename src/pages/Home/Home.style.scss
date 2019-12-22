@@ -1,0 +1,32 @@
+$main-color: #13C2C0;
+$second-color: #9C6269;
+$third-color: #FFC646;
+.home-page{
+    background-color: $main-color;
+    height: 84vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .image{
+        height: 60vh;
+    }
+
+    .button {
+        background-color: $second-color;
+        border: none;
+        color: $third-color;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        &:hover {
+            background-color: $third-color;
+            color: $second-color;
+          }
+      }
+}
