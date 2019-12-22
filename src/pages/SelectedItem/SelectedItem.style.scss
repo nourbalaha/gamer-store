@@ -1,8 +1,12 @@
+$main-color: #B2D8D7;
+$second-color: #9C6269;
+$third-color: #FFC646;
 .selected-item {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 84vh;
+  background-color: $main-color;
 
   .wrapper {
     display: flex;

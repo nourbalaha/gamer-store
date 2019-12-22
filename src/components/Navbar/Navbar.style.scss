@@ -9,8 +9,7 @@ $white: #ccc;
   color: $white;
   height: 6vh;
   padding: 10px 100px;
-  // margin-bottom: 50px;
-
+  border-bottom: #FD9429 solid 3px;
   .logo {
     height: 4vh;
     cursor: pointer;
@@ -21,7 +20,7 @@ $white: #ccc;
     color: white;
     cursor: pointer;
     &:hover{
-      color: $white;
+      color: #FD9429;
     }
 
   }
