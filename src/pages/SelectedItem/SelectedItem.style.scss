@@ -1,14 +1,97 @@
-.selected-item{
+.selected-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 84vh;
+
+  .wrapper {
     display: flex;
-    min-height: 84vh;
     justify-content: center;
     align-items: center;
+    min-height: 30vh;
+    background-color: #ccc;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
+}
+.item-image {
+    height: 300px;
+    margin-right: 50px;
+    border-radius: 5px;
+    box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
+}
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #bbb;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
 
-    .item-image {
-        height: 300px;
-        margin-right: 50px;
+    .input{
+        color: black;
+        background-color: #bbb;
+        border: none;
+        font-size: 16px;
     }
-    .details{
-        text-align: left;
+
+    .item-name{
+        font-size: 20px;
+        font-weight: bold;
+        margin: 20px 0;
+        text-transform: capitalize;
     }
+
+    .btn {
+      -webkit-transition-duration: 0.4s;
+      transition-duration: 0.4s;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+    }
+    .plus {
+      color: white;
+      padding: 5px 10px;
+      margin: 5px 10px;
+      background-color: #4caf50;
+      &:hover {
+        color: #4caf50;
+        background-color: white;
+      }
+    }
+    .minus {
+      color: white;
+      padding: 5px 10px;
+      margin: 5px 10px;
+      background-color: #4caf50;
+      &:hover {
+        color: #4caf50;
+        background-color: white;
+      }
+    }
+    .update {
+      color: white;
+      padding: 10px;
+      margin: 5px 10px;
+      background-color: #008cba;
+      &:hover {
+        color: #008cba;
+        background-color: white;
+      }
+    }
+    .delete {
+      color: white;
+      padding: 10px;
+      margin: 5px 10px;
+      background-color: #f44336;
+      &:hover {
+        color: #f44336;
+        background-color: white;
+      }
+    }
+  }
 }

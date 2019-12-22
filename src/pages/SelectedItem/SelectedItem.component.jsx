@@ -18,17 +18,37 @@ export default class SelectedItem extends Component {
     const item = this.state.items[this.state.id - 1]
     return (
       <div className='selected-item'>
-        <img className='item-image' src={item.image} alt={item.name} />
-        <div className='details'>
-          <h2 className='item-name'>
-            {item.name}
-          </h2>
-          <p className='item-price'>
-            {item.price}$
-          </p>
-          <p className='item-platform'>
-            {item.platform}
-          </p>
+        <div className='wrapper'>
+          <img className='item-image' src={item.image} alt={item.name} />
+          <div className='details'>
+            <input
+              type='text'
+              className='item-name input'
+              value={item.name}
+              disabled
+            />
+            <input
+              type='text'
+              className='item-price input'
+              value={`${item.price}$`}
+              disabled
+            />
+            <input
+              type='text'
+              className='item-platform input'
+              value={item.platform}
+              disabled
+            />
+            <div className='quantity-container'>
+              <input className='btn plus' type='button' value='-' />
+              <span>
+                {item.quantity}
+              </span>
+              <input className='btn minus' type='button' value='+' />
+            </div>
+            <input className='btn update' type='button' value='Update item' />
+            <input className='btn delete' type='button' value='Delete item' />
+          </div>
         </div>
       </div>
     )
