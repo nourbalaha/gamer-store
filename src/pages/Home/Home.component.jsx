@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+ 
 import "./Home.style.scss"
 
 import gamingConsole from "../../assets/gaming-console.png"
