@@ -1,21 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from "react-redux";
 
-import './SelectedItem.style.scss'
+import './SelectedItem.style.scss';
 
-import inventory from '../../data/inventory'
-
-export default class SelectedItem extends Component {
+class SelectedItem extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      items: inventory,
       id: this.props.match.params.id
     }
   }
 
+  handleDelete=()=>{
+    this.props.onDeleteClick({id:this.state.id})
+    this.props.history.push("/inventory")
+  }
+
   render () {
-    const item = this.state.items[this.state.id - 1]
+    let item = this.props.inventory.filter(item=>{
+      if(Number(item.id)===Number(this.state.id)){
+        return true;
+      }
+      return false;
+    })[0]
+
+
     return (
       <div className='selected-item'>
         <div className='wrapper'>
@@ -47,10 +57,29 @@ export default class SelectedItem extends Component {
               <input className='btn minus' type='button' value='+' />
             </div>
             <input className='btn update' type='button' value='Update item' />
-            <input className='btn delete' type='button' value='Delete item' />
+            <input className='btn delete' type='button' value='Delete item' onClick={this.handleDelete} />
           </div>
         </div>
       </div>
     )
   }
 }
+
+function mapState(state){
+  return {
+    inventory: state.inventory
+  }
+}
+
+function mapDispatch(dispatch){
+  return {
+    onUpdateClick(payload){
+      dispatch({type:"UPDATE_ITEM", payload})
+    },
+    onDeleteClick(payload){
+      dispatch({type:"DELETE_ITEM", payload})
+    },
+  }
+}
+
+export default connect(mapState,mapDispatch)(SelectedItem);
