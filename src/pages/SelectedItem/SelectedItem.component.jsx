@@ -9,13 +9,27 @@ class SelectedItem extends Component {
 
     this.state = {
       disabled: true,
-      id: this.props.match.params.id,
-      name: this.props.inventory[this.props.match.params.id].name,
-      price: this.props.inventory[this.props.match.params.id].price,
-      platform: this.props.inventory[this.props.match.params.id].platform,
-      quantity: this.props.inventory[this.props.match.params.id].quantity,
-      image: this.props.inventory[this.props.match.params.id].image,
+      id: "",
+      name: "",
+      price: "",
+      platform: "",
+      quantity: "",
+      image: "",
     }
+  }
+
+  componentDidMount(){
+    const id = Number(this.props.match.params.id);
+    const currentItem = this.props.inventory.filter(item=>Number(item.id)===id)[0];
+    console.log(currentItem)
+    this.setState({
+      id,
+      name: currentItem.name,
+      price: currentItem.price,
+      platform: currentItem.platform,
+      quantity: currentItem.quantity,
+      image: currentItem.image,
+    })
   }
 
   handleChange=e=>{
@@ -27,9 +41,18 @@ class SelectedItem extends Component {
   handleUpdate=()=>{
     this.setState((prevState,prevProps)=>{
       return {disabled: !prevState.disabled}
-    },()=>{
-      console.log(this.state.disabled)
     })
+    if(!this.state.disabled){
+      this.props.onUpdateClick({
+        id: this.state.id,
+        name: this.state.name,
+        price: this.state.price,
+        platform: this.state.platform,
+        quantity: this.state.quantity,
+        image: this.state.image,
+      })
+      this.props.history.push("/inventory")
+    }
   }
 
   handleDelete=()=>{
