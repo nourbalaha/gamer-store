@@ -1,17 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux"
 
 import Item from "../../components/Item/Item.component";
 
-import inventory from "../../data/inventory";
-
 import "./Inventory.style.scss";
 
-export default class Inventory extends Component {
+class Inventory extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      inventory,
       search: "",
       platform: "All Platforms"
     };
@@ -26,7 +24,7 @@ export default class Inventory extends Component {
   };
 
   render() {
-    const items = this.state.inventory.filter(item => {
+    const items = this.props.inventory.filter(item => {
       if (this.state.search === "") {
         if (this.state.platform === "All Platforms") {
           return item;
@@ -96,3 +94,10 @@ export default class Inventory extends Component {
     );
   }
 }
+
+
+function mapState (state) {
+  return { inventory: state.inventory }
+}
+
+export default connect(mapState, null)(Inventory)
