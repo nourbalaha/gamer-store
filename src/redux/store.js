@@ -1,7 +1,14 @@
 import { applyMiddleware, createStore } from 'redux'
 import logger from 'redux-logger'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 import inventory from '../data/inventory'
+
+const persistConfig = {
+    key: 'root',
+    storage,
+  }
 
 // Initial State
 const initial_state = {
@@ -34,7 +41,6 @@ function reducer (state = initial_state, action) {
   }
 }
 
-let store = createStore(reducer,applyMiddleware(logger))
-export default store
-
-
+export const persistedReducer = persistReducer(persistConfig, reducer)
+export const store = createStore(persistedReducer,applyMiddleware(logger))
+export const persistor = persistStore(store)

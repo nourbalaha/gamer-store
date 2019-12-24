@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
+import { PersistGate } from 'redux-persist/integration/react'
 
 import "./App.css";
 
@@ -12,12 +13,13 @@ import Home from "./pages/Home/Home.component"
 import Navbar from "./components/Navbar/Navbar.component";
 import Footer from "./components/Footer/Footer.component";
 
-import store from "./redux/store"
+import {store, persistor} from "./redux/store"
 
 function App() {
   return (
     <Provider store={store}>
     <Router>
+    <PersistGate loading={null} persistor={persistor}>
       <div className="App">
         <header className="App-header">
           <Navbar />
@@ -36,6 +38,7 @@ function App() {
           <Footer />
         </footer>
       </div>
+      </PersistGate>
     </Router>
     </Provider>
   );
