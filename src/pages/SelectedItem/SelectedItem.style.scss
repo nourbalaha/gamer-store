@@ -39,6 +39,7 @@ $third-color: #FFC646;
         background-color: #bbb;
         border: none;
         font-size: 16px;
+        margin: 5px 0;
     }
 
     .item-name{
@@ -46,6 +47,7 @@ $third-color: #FFC646;
         font-weight: bold;
         margin: 20px 0;
         text-transform: capitalize;
+        width:400px;
     }
 
     .btn {
@@ -57,25 +59,11 @@ $third-color: #FFC646;
       display: inline-block;
       font-size: 16px;
     }
-    .plus {
+    .plus-minus {
       color: white;
       padding: 5px 10px;
       margin: 5px 10px;
       background-color: #4caf50;
-      &:hover {
-        color: #4caf50;
-        background-color: white;
-      }
-    }
-    .minus {
-      color: white;
-      padding: 5px 10px;
-      margin: 5px 10px;
-      background-color: #4caf50;
-      &:hover {
-        color: #4caf50;
-        background-color: white;
-      }
     }
     .update {
       color: white;
