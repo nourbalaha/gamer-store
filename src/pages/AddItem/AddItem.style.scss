@@ -48,9 +48,19 @@ $third-color: #FFC646;
         }
         .input{
             margin-top: 20px;
+            width: 340px;
+            height: 30px;
+            font-size: 18px;
+            text-align: left;
+            padding-left: 10px;
+            border: none;
+        }
+        .list{
+            margin-top: 20px;
             width: 350px;
             height: 30px;
             font-size: 18px;
+            border: none;
         }
     }
 }

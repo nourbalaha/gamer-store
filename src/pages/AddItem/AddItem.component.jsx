@@ -22,6 +22,8 @@ class AddItem extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const newItem = this.state;
+    let id = this.props.inventory.length>0?this.props.inventory[this.props.inventory.length -1].id + 1:1;
+    newItem.id = id;
     if(!this.state.image) newItem.image=GameCover;
     newItem.id=Number(newItem.id)
     newItem.price=Number(newItem.price)
@@ -39,15 +41,6 @@ class AddItem extends Component {
       <div className="add-item">
         <form className="add-item-form" onSubmit={this.handleSubmit}>
           <span className="title">Add Item</span>
-          <input
-            className="input"
-            name="id"
-            type="text"
-            placeholder="ID"
-            value={this.state.id}
-            onChange={this.handleChange}
-            required
-          />
 
           <input
             className="input"
@@ -57,17 +50,20 @@ class AddItem extends Component {
             value={this.state.name}
             onChange={this.handleChange}
             required
-          />
+            />
 
-          <input
-            className="input"
-            name="platform"
-            type="text"
-            placeholder="Platform"
-            value={this.state.platform}
-            onChange={this.handleChange}
-            required
-          />
+          <select
+              className="list"
+              name="platform"
+              value={this.state.platform}
+              placeholder="Platform"
+              onChange={this.handleChange}
+              required
+            >
+              <option value="">--Please choose a platform--</option>
+              <option value="Playstation 4">Playstation 4</option>
+              <option value="Xbox One">Xbox One</option>
+            </select>
 
           <input
             className="input"
