@@ -58,18 +58,21 @@ $third-color: #FFC646;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
+      border-radius: 5px;
     }
     .plus-minus {
       color: white;
       padding: 5px 10px;
       margin: 5px 10px;
       background-color: #4caf50;
+      border-radius: 50%;
     }
     .update {
       color: white;
       padding: 10px;
       margin: 5px 10px;
       background-color: #008cba;
+      cursor: pointer;
       &:hover {
         color: #008cba;
         background-color: white;
@@ -80,6 +83,7 @@ $third-color: #FFC646;
       padding: 10px;
       margin: 5px 10px;
       background-color: #f44336;
+      cursor: pointer;
       &:hover {
         color: #f44336;
         background-color: white;

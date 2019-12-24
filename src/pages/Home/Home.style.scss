@@ -24,6 +24,7 @@ $third-color: #FFC646;
         font-size: 16px;
         -webkit-transition-duration: 0.4s;
         transition-duration: 0.4s;
+        cursor: pointer;
         &:hover {
             background-color: $third-color;
             color: $second-color;
