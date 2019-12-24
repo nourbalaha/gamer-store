@@ -39,6 +39,7 @@ $third-color: #FFC646;
             text-align: center;
             text-decoration: none;
             display: inline-block;
+            border-radius: 5px;
             -webkit-transition-duration: 0.4s;
             transition-duration: 0.4s;
             &:hover {
@@ -54,6 +55,7 @@ $third-color: #FFC646;
             text-align: left;
             padding-left: 10px;
             border: none;
+            border-radius: 5px;
         }
         .list{
             margin-top: 20px;
@@ -61,6 +63,7 @@ $third-color: #FFC646;
             height: 30px;
             font-size: 18px;
             border: none;
+            border-radius: 5px;
         }
     }
 }
