@@ -23,6 +23,9 @@ class AddItem extends Component {
     e.preventDefault();
     const newItem = this.state;
     if(!this.state.image) newItem.image=GameCover;
+    newItem.id=Number(newItem.id)
+    newItem.price=Number(newItem.price)
+    newItem.quantity=Number(newItem.quantity)
     this.props.onAddClick(newItem)
     this.props.history.push("/inventory")
   };
