@@ -101,7 +101,7 @@ class AddItem extends Component {
 }
 
 function mapState(state) {
-  return { inventory: state.inventory };
+  return { inventory: state.inventory.inventory };
 }
 
 function mapDispatch(dispatch) {

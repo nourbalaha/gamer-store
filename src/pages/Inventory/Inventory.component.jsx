@@ -24,6 +24,7 @@ class Inventory extends Component {
   };
 
   render() {
+    console.log(this.props)
     const items = this.props.inventory.filter(item => {
       if (this.state.search === "") {
         if (this.state.platform === "All Platforms") {
@@ -97,7 +98,7 @@ class Inventory extends Component {
 
 
 function mapState (state) {
-  return { inventory: state.inventory }
+  return { inventory: state.inventory.inventory }
 }
 
 export default connect(mapState, null)(Inventory)

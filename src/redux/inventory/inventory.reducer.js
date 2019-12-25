@@ -1,12 +1,4 @@
-import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-
-import inventory from '../data/inventory'
-
-const persistConfig = {
-    key: 'root',
-    storage,
-  }
+import inventory from '../../data/inventory'
 
 // Initial State
 const initial_state = {
@@ -14,7 +6,7 @@ const initial_state = {
 }
 
 // Reducer
-function reducer (state = initial_state, action) {
+function inventoryReducer (state = initial_state, action) {
   switch (action.type) {
     case 'ADD_ITEM':
       return { inventory: [...state.inventory, action.payload] }
@@ -39,5 +31,4 @@ function reducer (state = initial_state, action) {
   }
 }
 
-const persistedReducer = persistReducer(persistConfig, reducer)
-export default persistedReducer;
+export default inventoryReducer;

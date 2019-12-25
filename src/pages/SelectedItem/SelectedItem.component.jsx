@@ -162,7 +162,7 @@ class SelectedItem extends Component {
 
 function mapState(state) {
   return {
-    inventory: state.inventory
+    inventory: state.inventory.inventory
   };
 }
 
