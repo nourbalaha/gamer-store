@@ -22,13 +22,29 @@ $white: #ccc;
     &:hover{
       color: #FD9429;
     }
-
+    
   }
-
+  
   ul {
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    
+    .google_button{
+      border: 1px solid white;
+      border-radius: 3px;
+      padding: 10px 12px;
+      font-size: 14px;
+        &:hover{
+          border:1px solid #FD9429;
+        }
+    }
+
+    .google_logo{
+      width: 12px;
+      height: 12px;
+      margin-right: 12px;
+    }
 
     li {
       padding: 0 10px;
