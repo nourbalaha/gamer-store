@@ -14,6 +14,9 @@ $orange: #FD9429;
   .logo {
     height: 4vh;
     cursor: pointer;
+    &:hover{
+      opacity: .8;
+    }
   }
 
   .nav-item {
