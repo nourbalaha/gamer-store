@@ -3,45 +3,58 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import logo from "../../assets/Logo white.png"
+import logo from "../../assets/Logo white.png";
 
-import "../Navbar/Navbar.style.scss"
+import "../Navbar/Navbar.style.scss";
 
-import { auth } from "../../firebase/firebase.config"
+import Dropdown from "../../components/Dropdown/Dropdown.component";
 
 class Navbar extends Component {
-
-  handleSignIn=()=>{
-    this.props.history.push("/signin")
-  }
-  
-  handleSignout=()=>{
-    auth.signOut()
-  }
+  handleSignIn = () => {
+    this.props.history.push("/signin");
+  };
 
   render() {
     let item;
-    if(typeof this.props.currentUser=="object" && !this.props.currentUser){
-      item= <span className="nav-item" onClick={this.handleSignIn}>Login</span>
+    if (typeof this.props.currentUser == "object" && !this.props.currentUser) {
+      item = (
+        <span className="nav-item" onClick={this.handleSignIn}>
+          LOGIN
+        </span>
+      );
     } else {
-      item=<span className="nav-item" onClick={this.handleSignout}>Logout</span>
+      item = (
+        <Dropdown />
+      );
     }
     return (
       <nav className="navbar">
-        <img className="logo" src={logo} alt="logo" onClick={()=>this.props.history.push("/")}/>
+        <img
+          className="logo"
+          src={logo}
+          alt="logo"
+          onClick={() => this.props.history.push("/")}
+        />
         <ul>
           <li>
-            <span className="nav-item" onClick={()=>this.props.history.push("/inventory")}>INVENTORY</span>
+            <span
+              className="nav-item"
+              onClick={() => this.props.history.push("/inventory")}
+            >
+              INVENTORY
+            </span>
           </li>
           <li>
-            <span className="nav-item" onClick={()=>this.props.history.push("/additem")}>ADD ITEM</span>
+            <span
+              className="nav-item"
+              onClick={() => this.props.history.push("/additem")}
+            >
+              ADD ITEM
+            </span>
           </li>
           <li>
-            {
-              item
-
-            }
-            </li>
+            {item}
+          </li>
         </ul>
       </nav>
     );
@@ -60,7 +73,4 @@ function mapDispatch(dispatch) {
   };
 }
 
-export default compose(
-  withRouter,
-  connect(mapState, mapDispatch)
-)(Navbar);
+export default compose(withRouter, connect(mapState, mapDispatch))(Navbar);

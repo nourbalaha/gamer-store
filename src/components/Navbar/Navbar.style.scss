@@ -1,5 +1,6 @@
 $gray: #333;
 $white: #ccc;
+$orange: #FD9429;
 
 .navbar {
   display: flex;
@@ -9,7 +10,7 @@ $white: #ccc;
   color: $white;
   height: 6vh;
   padding: 10px 100px;
-  border-bottom: #FD9429 solid 3px;
+  border-bottom: $orange solid 3px;
   .logo {
     height: 4vh;
     cursor: pointer;
@@ -20,7 +21,7 @@ $white: #ccc;
     color: white;
     cursor: pointer;
     &:hover{
-      color: #FD9429;
+      color: $orange;
     }
     
   }
@@ -29,16 +30,6 @@ $white: #ccc;
     display: flex;
     flex-direction: row;
     list-style-type: none;
-    
-    // .google_button{
-    //   border: 1px solid white;
-    //   border-radius: 3px;
-    //   padding: 10px 12px;
-    //   font-size: 14px;
-    //     &:hover{
-    //       border:1px solid #FD9429;
-    //     }
-    // }
 
     li {
       padding: 0 10px;
