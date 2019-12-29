@@ -3,11 +3,11 @@ $white: #ccc;
 $orange: #FD9429;
 
 .dropdown {
-    position: relative;
-    display: inline-block;
+    // position: relative;
+    // display: inline-block;
     
     &:hover {
-        display: block;
+        // display: block;
         .dropdown-content {
             display: block;
         }
@@ -29,6 +29,7 @@ $orange: #FD9429;
         background-color: #f1f1f1;
         opacity: .95;
         min-width: 160px;
+        border-radius: 5px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
         .profile{

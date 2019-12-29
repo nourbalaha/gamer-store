@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import "./Dropdown.style.scss";
 
+import profile from "../../assets/Profile-Placeholder.png"
+
 import { auth } from "../../firebase/firebase.config";
 
 class Dropdown extends React.Component {
@@ -19,7 +21,7 @@ class Dropdown extends React.Component {
         <div class="dropdown-content">
             <div className="profile">
           <img
-            src={this.props.currentUser.photoURL}
+            src={this.props.currentUser.photoURL?this.props.currentUser.photoURL:profile}
             alt="profile"
             className="profile-img"
           />
