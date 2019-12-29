@@ -1,40 +1,47 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-import { PersistGate } from 'redux-persist/integration/react'
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import "./App.css";
+import './App.css'
 
-import Inventory from "./pages/Inventory/Inventory.component";
-import SelectedItem from "./pages/SelectedItem/SelectedItem.component"
-import AddItem from "./pages/AddItem/AddItem.component"
-import Home from "./pages/Home/Home.component"
-import SignIn from "./pages/SignIn/SignIn.component"
-import Register from "./pages/Register/Register.component"
+import Inventory from './pages/Inventory/Inventory.component'
+import SelectedItem from './pages/SelectedItem/SelectedItem.component'
+import AddItem from './pages/AddItem/AddItem.component'
+import Home from './pages/Home/Home.component'
+import SignIn from './pages/SignIn/SignIn.component'
+import Register from './pages/Register/Register.component'
 
-import Navbar from "./components/Navbar/Navbar.component";
-import Footer from "./components/Footer/Footer.component";
+import Navbar from './components/Navbar/Navbar.component'
+import Footer from './components/Footer/Footer.component'
 
-import {store, persistor} from "./redux/store"
+import { auth } from './firebase/firebase.config'
 
-function App() {
-  return (
-    <Provider store={store}>
-    <Router>
-    <PersistGate loading={null} persistor={persistor}>
-      <div className="App">
-        <header className="App-header">
+class App extends React.Component {
+  componentDidMount () {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        this.props.onAddUser(user)
+      } else {
+        this.props.onAddUser(null)
+      }
+    })
+  }
+
+  render () {
+    return (
+      <div className='App'>
+        <header className='App-header'>
           <Navbar />
         </header>
 
         <main>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/signin" component={SignIn} />
-            <Route path="/register" component={Register} />
-            <Route exact path="/inventory" component={Inventory} />
-            <Route path="/additem" component={AddItem} />
-            <Route path="/inventory/:id" component={SelectedItem} />
+            <Route exact path='/' component={Home} />
+            <Route path='/signin' component={this.props.currentUser?Inventory:SignIn} />
+            <Route path='/register' component={this.props.currentUser?Inventory:Register} />
+            <Route exact path='/inventory' component={Inventory} />
+            <Route path='/additem' component={AddItem} />
+            <Route path='/inventory/:id' component={SelectedItem} />
           </Switch>
         </main>
 
@@ -42,10 +49,20 @@ function App() {
           <Footer />
         </footer>
       </div>
-      </PersistGate>
-    </Router>
-    </Provider>
-  );
+    )
+  }
 }
 
-export default App;
+function mapState(state) {
+  return { currentUser: state.auth.currentUser };
+}
+
+function mapDispatch (dispatch) {
+  return {
+    onAddUser (payload) {
+      dispatch({ type: 'ADD_USER', payload })
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(App)
