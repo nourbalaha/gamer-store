@@ -1,39 +1,18 @@
 import React, { Component } from "react";
+import { compose } from "redux";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import logo from "../../assets/Logo white.png"
-import google from "../../assets/google-icon.png"
 
 import "../Navbar/Navbar.style.scss"
 
-import {signInWithGoogle, auth} from "../../firebase/firebase.config"
+import { auth } from "../../firebase/firebase.config"
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       currentUser:null
-    }
-  }
-  unsubscribeFromAuth = null;
-
-  componentDidMount(){
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      if (user) {
-        this.setState({currentUser:user})
-      } else {
-        this.setState({currentUser:null})
-      }
-    });
-  }
-
-  componentWillUnmount(){
-    this.unsubscribeFromAuth();
-  }
 
   handleSignIn=()=>{
-    signInWithGoogle()
+    this.props.history.push("/signin")
   }
   
   handleSignout=()=>{
@@ -42,8 +21,8 @@ class Navbar extends Component {
 
   render() {
     let item;
-    if(typeof this.state.currentUser=="object" && !this.state.currentUser){
-      item= <span className="nav-item google_button" onClick={this.handleSignIn}><img className="google_logo" src={google} alt="google logo" />sign in with google</span>
+    if(typeof this.props.currentUser=="object" && !this.props.currentUser){
+      item= <span className="nav-item" onClick={this.handleSignIn}>Login</span>
     } else {
       item=<span className="nav-item" onClick={this.handleSignout}>Logout</span>
     }
@@ -69,4 +48,19 @@ class Navbar extends Component {
   }
 }
 
-export default withRouter(Navbar);
+function mapState(state) {
+  return { currentUser: state.auth.currentUser };
+}
+
+function mapDispatch(dispatch) {
+  return {
+    onAddUser(payload) {
+      dispatch({ type: "ADD_USER", payload });
+    }
+  };
+}
+
+export default compose(
+  withRouter,
+  connect(mapState, mapDispatch)
+)(Navbar);
