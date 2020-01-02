@@ -57,16 +57,22 @@ class Inventory extends Component {
               All Platforms
             </span>
             <span
-              className="platform playstation"
+              className="platform"
               onClick={() => this.handleClick("Playstation 4")}
             >
               Playstation 4
             </span>
             <span
-              className="platform xbox"
+              className="platform"
               onClick={() => this.handleClick("Xbox One")}
             >
               Xbox One
+            </span>
+            <span
+              className="platform"
+              onClick={() => this.handleClick("Nintendo Switch")}
+            >
+              Nintendo Switch
             </span>
           </div>
           <input

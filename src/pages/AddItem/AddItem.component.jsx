@@ -63,6 +63,7 @@ class AddItem extends Component {
               <option value="">--Please choose a platform--</option>
               <option value="Playstation 4">Playstation 4</option>
               <option value="Xbox One">Xbox One</option>
+              <option value="Nintendo Switch">Nintendo Switch</option>
             </select>
 
           <input
