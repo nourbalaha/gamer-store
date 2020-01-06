@@ -24,6 +24,7 @@ class AddItem extends Component {
     const newItem = this.state;
     let id = this.props.inventory.length>0?this.props.inventory[this.props.inventory.length -1].id + 1:1;
     newItem.id = id;
+    newItem.name = newItem.name.toLowerCase();
     if(!this.state.image) newItem.image=GameCover;
     newItem.id=Number(newItem.id)
     newItem.price=Number(newItem.price)

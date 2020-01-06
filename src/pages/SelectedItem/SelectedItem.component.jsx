@@ -47,7 +47,7 @@ class SelectedItem extends Component {
     if (!this.state.disabled) {
       this.props.onUpdateClick({
         id: this.state.id,
-        name: this.state.name,
+        name: this.state.name.toLocaleLowerCase(),
         price: this.state.price,
         platform: this.state.platform,
         quantity: this.state.quantity,

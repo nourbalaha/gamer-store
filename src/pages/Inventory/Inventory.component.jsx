@@ -16,7 +16,7 @@ class Inventory extends Component {
   }
 
   handleChange = event => {
-    this.setState({ search: event.target.value });
+    this.setState({ search: event.target.value.toLowerCase() });
   };
 
   handleClick = platform => {
