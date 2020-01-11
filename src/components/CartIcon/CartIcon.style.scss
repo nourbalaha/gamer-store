@@ -1,0 +1,15 @@
+.cart-container{
+    box-sizing: border-box;
+    cursor: pointer;
+    .cart{
+        width: 25px;
+    }
+    .cart-counter{
+        position: relative;
+        right:  16px;
+        bottom:7px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #FD9429;
+    }
+}

@@ -8,6 +8,7 @@ import logo from "../../assets/Logo white.png";
 import "../Navbar/Navbar.style.scss";
 
 import Dropdown from "../../components/Dropdown/Dropdown.component";
+import CartIcon from "../../components/CartIcon/CartIcon.component";
 
 class Navbar extends Component {
   handleSignIn = () => {
@@ -54,6 +55,9 @@ class Navbar extends Component {
           </li>
           <li>
             {item}
+          </li>
+          <li>
+            <CartIcon />
           </li>
         </ul>
       </nav>
