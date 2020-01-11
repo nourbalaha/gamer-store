@@ -1,12 +1,14 @@
 import authReducer from "./auth/auth.reducer"
 import inventoryReducer from "./inventory/inventory.reducer"
+import cartReducer from "./cart/cart.reducer"
 import { combineReducers } from "redux"
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
-    auth: authReducer
+    auth: authReducer,
+    cart: cartReducer
 })
 
 const persistConfig = {
