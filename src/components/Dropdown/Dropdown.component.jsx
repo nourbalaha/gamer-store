@@ -14,11 +14,11 @@ class Dropdown extends React.Component {
 
   render() {
     return (
-      <div class="dropdown">
-        <span class="dropbtn">
-          PROFILE <i class="fa fa-caret-down" />
+      <div className="dropdown">
+        <span className="dropbtn">
+          PROFILE <i className="fa fa-caret-down" />
         </span>
-        <div class="dropdown-content">
+        <div className="dropdown-content">
             <div className="profile">
           <img
             src={this.props.currentUser.photoURL?this.props.currentUser.photoURL:profile}
