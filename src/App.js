@@ -10,6 +10,7 @@ import AddItem from './pages/AddItem/AddItem.component'
 import Home from './pages/Home/Home.component'
 import SignIn from './pages/SignIn/SignIn.component'
 import Register from './pages/Register/Register.component'
+import Cart from './pages/Cart/Cart.component'
 
 import Navbar from './components/Navbar/Navbar.component'
 import Footer from './components/Footer/Footer.component'
@@ -42,6 +43,7 @@ class App extends React.Component {
             <Route exact path='/inventory' component={Inventory} />
             <Route path='/additem' component={AddItem} />
             <Route path='/inventory/:id' component={SelectedItem} />
+            <Route path='/cart' component={Cart} />
           </Switch>
         </main>
 
