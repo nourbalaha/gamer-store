@@ -151,25 +151,19 @@ class SelectedItem extends Component {
                 disabled={this.state.disabled}
               />
             </div>
-            <input
+            <button
               className="btn update"
-              type="button"
-              value="Update item"
               onClick={this.handleUpdate}
-            />
-            <input
+            ><i class="fa fa-pencil" /> Update item</button>
+            <button
               className="btn delete"
-              type="button"
-              value="Delete item"
               onClick={this.handleDelete}
-            />
+            ><i class="fa fa-trash" /> Delete item</button>
 
-            <input
+            <button
               className="btn add-to-cart"
-              type="button"
-              value="Add to cart"
               onClick={this.handleAddToCart}
-            />
+            ><i className="fa fa-shopping-bag" /> Add to cart</button>
           </div>
         </div>
       </div>
