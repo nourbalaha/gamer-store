@@ -23,7 +23,6 @@ class SelectedItem extends Component {
     const currentItem = this.props.inventory.filter(
       item => Number(item.id) === id
     )[0];
-    console.log(currentItem);
     this.setState({
       id,
       name: currentItem.name,
@@ -78,6 +77,16 @@ class SelectedItem extends Component {
         };
       });
     }
+  };
+
+  handleAddToCart = () => {
+    const item = {};
+    item.id = this.state.id;
+    item.name = this.state.name;
+    item.price = this.state.price;
+    item.platform = this.state.platform;
+    item.image = this.state.image;
+    this.props.onAddToCartClick(item)
   };
 
   render() {
@@ -154,6 +163,13 @@ class SelectedItem extends Component {
               value="Delete item"
               onClick={this.handleDelete}
             />
+
+            <input
+              className="btn add-to-cart"
+              type="button"
+              value="Add to cart"
+              onClick={this.handleAddToCart}
+            />
           </div>
         </div>
       </div>
@@ -174,7 +190,10 @@ function mapDispatch(dispatch) {
     },
     onDeleteClick(payload) {
       dispatch({ type: "DELETE_ITEM", payload });
-    }
+    },
+    onAddToCartClick(payload) {
+      dispatch({ type: "ADD_TO_CART", payload });
+    },
   };
 }
 

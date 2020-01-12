@@ -78,6 +78,17 @@ $third-color: #FFC646;
         background-color: white;
       }
     }
+    .add-to-cart {
+      color: white;
+      padding: 10px;
+      margin: 5px 10px;
+      background-color: gray;
+      cursor: pointer;
+      &:hover {
+        color: gray;
+        background-color: white;
+      }
+    }
     .delete {
       color: white;
       padding: 10px;
