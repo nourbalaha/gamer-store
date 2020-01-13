@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { connect } from "react-redux"
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { compose } from "redux";
 
 import "./CartItem.style.scss";
 
@@ -16,7 +18,7 @@ export class CartItem extends Component {
           alt={this.props.name}
         />
         <div className="cart-item-details">
-          <span className="cart-item-name">
+          <span className="cart-item-name" onClick={()=>this.props.history.push(`/inventory/${this.props.id}`)}>
             {this.props.name}
           </span>
           <span>
@@ -54,4 +56,4 @@ const mapDispatch = dispatch=>{
     }
 }
 
-export default connect(mapState, mapDispatch)(CartItem)
+export default compose(withRouter, connect(mapState, mapDispatch))(CartItem)
