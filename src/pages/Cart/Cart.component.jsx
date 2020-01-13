@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
 
+import CartItem from "../../components/CartItem/CartItem.component"
+
 import "./Cart.styles.scss"
 
 class Cart extends Component {
@@ -9,18 +11,10 @@ class Cart extends Component {
         return (
             <div className="cart-page">
                 {
-                    keys.map((item,index)=>{
+                    keys.map(item=>{
                         item = this.props.cart[item]
                      return (
-                         <div className="cart-item" key={index}>
-                            <img className="cart-item-image" src={item.image} alt={item.name} />
-                            <div className="cart-item-details">
-                                <span className="cart-item-name">{item.name}</span>
-                                <span>{item.price} $</span>
-                                <span>{item.platform}</span>
-                                <span>Quantity: {item.quantity}</span>
-                            </div>
-                         </div>
+                        <CartItem key={item.id} id={item.id} name={item.name} price={item.price} platform={item.platform} quantity={item.quantity} image={item.image} />
                      )   
                     })
                 }
