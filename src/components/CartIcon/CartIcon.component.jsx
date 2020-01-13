@@ -9,10 +9,15 @@ import cart from '../../assets/shopping-bag.png'
 
 class CartIcon extends Component {
   render () {
+    let keys = Object.keys(this.props.cart);
+    let numberOfItems = 0;
+    if(keys.length>0){
+      numberOfItems = keys.map(key=>this.props.cart[key].quantity).reduce((a,b)=>a+b);
+    }
     return (
       <div className='cart-container' onClick={()=>this.props.history.push("/cart")}>
         <img className='cart' src={cart} alt='cart' />
-        <span className='cart-counter'>{this.props.cart.length<10?this.props.cart.length:"..."}</span>
+        <span className='cart-counter'>{numberOfItems<10?numberOfItems:"..."}</span>
       </div>
     )
   }

@@ -19,6 +19,7 @@ class SelectedItem extends Component {
   }
 
   componentDidMount() {
+    // this.props.onDeleteCartClick()
     const id = Number(this.props.match.params.id);
     const currentItem = this.props.inventory.filter(
       item => Number(item.id) === id
@@ -80,13 +81,14 @@ class SelectedItem extends Component {
   };
 
   handleAddToCart = () => {
-    const item = {};
-    item.id = this.state.id;
-    item.name = this.state.name;
-    item.price = this.state.price;
-    item.platform = this.state.platform;
-    item.image = this.state.image;
-    this.props.onAddToCartClick(item)
+    const newItem = {};
+    newItem.id = this.state.id;
+    newItem.name = this.state.name;
+    newItem.price = this.state.price;
+    newItem.platform = this.state.platform;
+    newItem.image = this.state.image;
+
+    this.props.onAddToCartClick(newItem)
   };
 
   render() {
@@ -154,11 +156,11 @@ class SelectedItem extends Component {
             <button
               className="btn update"
               onClick={this.handleUpdate}
-            ><i class="fa fa-pencil" /> Update item</button>
+            ><i className="fa fa-pencil" /> Update item</button>
             <button
               className="btn delete"
               onClick={this.handleDelete}
-            ><i class="fa fa-trash" /> Delete item</button>
+            ><i className="fa fa-trash" /> Delete item</button>
 
             <button
               className="btn add-to-cart"
@@ -173,7 +175,8 @@ class SelectedItem extends Component {
 
 function mapState(state) {
   return {
-    inventory: state.inventory.inventory
+    inventory: state.inventory.inventory,
+    cart: state.cart.cart,
   };
 }
 
@@ -187,6 +190,9 @@ function mapDispatch(dispatch) {
     },
     onAddToCartClick(payload) {
       dispatch({ type: "ADD_TO_CART", payload });
+    },
+    onDeleteCartClick() {
+      dispatch({ type: "DELETE_CART" });
     },
   };
 }
