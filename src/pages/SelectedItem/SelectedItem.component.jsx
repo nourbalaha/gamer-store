@@ -19,7 +19,6 @@ class SelectedItem extends Component {
   }
 
   componentDidMount() {
-    // this.props.onDeleteCartClick()
     const id = Number(this.props.match.params.id);
     const currentItem = this.props.inventory.filter(
       item => Number(item.id) === id
@@ -190,9 +189,6 @@ function mapDispatch(dispatch) {
     },
     onAddToCartClick(payload) {
       dispatch({ type: "ADD_TO_CART", payload });
-    },
-    onDeleteCartClick() {
-      dispatch({ type: "DELETE_CART" });
     },
   };
 }
