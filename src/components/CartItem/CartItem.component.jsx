@@ -1,24 +1,57 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { connect } from "react-redux"
 
-import "./CartItem.style.scss"
+import "./CartItem.style.scss";
 
 export class CartItem extends Component {
-    render() {
-        return (
-            <div className="cart-item">
-            <img className="cart-item-image" src={this.props.image} alt={this.props.name} />
-            <div className="cart-item-details">
-                <span className="cart-item-name">{this.props.name}</span>
-                <span>Price: {this.props.price} $</span>
-                <span>Platform: {this.props.platform}</span>
-                <span>Quantity: {this.props.quantity}</span>
-            </div>
-            <div className="cart-item-buttons">
-                <button className="cart-item-remove-button"><i className="fa fa-trash" /></button>
-            </div>
-         </div>
-        )
+  removeFromCart = () => {
+    this.props.onRemoveFromCart({id: this.props.id})
+  };
+  render() {
+    return (
+      <div className="cart-item">
+        <img
+          className="cart-item-image"
+          src={this.props.image}
+          alt={this.props.name}
+        />
+        <div className="cart-item-details">
+          <span className="cart-item-name">
+            {this.props.name}
+          </span>
+          <span>
+            Price: {this.props.price} $
+          </span>
+          <span>
+            Platform: {this.props.platform}
+          </span>
+          <span>
+            Quantity: {this.props.quantity}
+          </span>
+        </div>
+        <div className="cart-item-buttons">
+          <button className="cart-item-remove-button" onClick={this.removeFromCart}>
+            <i className="fa fa-trash" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+
+
+const mapState=state=>{
+    return {
+        cart: state.cart.cart,
     }
 }
 
-export default CartItem
+const mapDispatch = dispatch=>{
+    return {
+        onRemoveFromCart(payload) {
+          dispatch({ type: "REMOVE_ITEM", payload });
+        }
+    }
+}
+
+export default connect(mapState, mapDispatch)(CartItem)
