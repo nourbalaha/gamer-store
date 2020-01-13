@@ -24,7 +24,6 @@ class Inventory extends Component {
   };
 
   render() {
-    console.log(this.props)
     const items = this.props.inventory.filter(item => {
       if (this.state.search === "") {
         if (this.state.platform === "All Platforms") {
