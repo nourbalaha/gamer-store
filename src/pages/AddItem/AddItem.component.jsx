@@ -23,16 +23,16 @@ class AddItem extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     
+    const ref = await firestore.collection("inventory").doc()
+
     const newItem = this.state;
-    let id = this.props.inventory.length>0?this.props.inventory[this.props.inventory.length -1].id + 1:1;
-    newItem.id = id;
+    newItem.id = ref.id;
     newItem.name = newItem.name.toLowerCase();
     if(!this.state.image) newItem.image=GameCover;
     newItem.price=Number(newItem.price)
     newItem.quantity=Number(newItem.quantity)
     this.props.onAddClick(newItem)
     
-    const ref = firestore.collection("inventory").doc()
     await ref.set(newItem)
 
     this.props.history.push("/inventory")
