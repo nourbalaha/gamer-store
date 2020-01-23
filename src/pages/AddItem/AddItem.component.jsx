@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { firestore } from "../../firebase/firebase.config"
 
 import "./AddItem.style.scss";
 
@@ -19,17 +20,21 @@ class AddItem extends Component {
     };
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
+    
     const newItem = this.state;
     let id = this.props.inventory.length>0?this.props.inventory[this.props.inventory.length -1].id + 1:1;
     newItem.id = id;
     newItem.name = newItem.name.toLowerCase();
     if(!this.state.image) newItem.image=GameCover;
-    newItem.id=Number(newItem.id)
     newItem.price=Number(newItem.price)
     newItem.quantity=Number(newItem.quantity)
     this.props.onAddClick(newItem)
+    
+    const ref = firestore.collection("inventory").doc()
+    await ref.set(newItem)
+
     this.props.history.push("/inventory")
   };
 
