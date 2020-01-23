@@ -19,9 +19,9 @@ class SelectedItem extends Component {
   }
 
   componentDidMount() {
-    const id = Number(this.props.match.params.id);
+    const id = this.props.match.params.id;
     const currentItem = this.props.inventory.filter(
-      item => Number(item.id) === id
+      item => item.id === id
     )[0];
     this.setState({
       id,

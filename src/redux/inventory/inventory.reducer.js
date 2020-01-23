@@ -1,15 +1,17 @@
-import inventory from '../../data/inventory'
-
 // Initial State
 const initial_state = {
-  inventory
+  inventory: []
 }
 
 // Reducer
 function inventoryReducer (state = initial_state, action) {
   switch (action.type) {
+
     case 'ADD_ITEM':
       return { inventory: [...state.inventory, action.payload] }
+
+    case 'SET_INVENTORY':
+      return { inventory: action.payload }
 
     case 'UPDATE_ITEM':
       let updated_inventory = [...state.inventory]

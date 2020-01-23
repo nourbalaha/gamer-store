@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { connect } from "react-redux"
+import { connect } from "react-redux";
 
 import Item from "../../components/Item/Item.component";
+import { firestore } from "../../firebase/firebase.config";
 
 import "./Inventory.style.scss";
 
@@ -11,8 +12,18 @@ class Inventory extends Component {
 
     this.state = {
       search: "",
-      platform: "All Platforms"
+      platform: "All Platforms",
     };
+  }
+
+  async componentDidMount() {
+    let ref = firestore.collection("inventory");
+
+    let items = await ref.get()
+    let docs = items.docs.map(doc=>doc.data())
+
+    this.props.setInventory(docs)
+
   }
 
   handleChange = event => {
@@ -24,7 +35,8 @@ class Inventory extends Component {
   };
 
   render() {
-    const items = this.props.inventory.filter(item => {
+    const docs = this.props.inventory
+    const items = docs.filter(item => {
       if (this.state.search === "") {
         if (this.state.platform === "All Platforms") {
           return item;
@@ -101,9 +113,16 @@ class Inventory extends Component {
   }
 }
 
-
-function mapState (state) {
-  return { inventory: state.inventory.inventory }
+function mapState(state) {
+  return { inventory: state.inventory.inventory };
 }
 
-export default connect(mapState, null)(Inventory)
+function mapDispatch(dispatch){
+  return {
+    setInventory(payload){
+      dispatch({type:"SET_INVENTORY",payload})
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Inventory);
