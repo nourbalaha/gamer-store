@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { firestore } from "../../firebase/firebase.config"
+
 import "./SelectedItem.style.scss";
 
 class SelectedItem extends Component {
@@ -39,25 +41,36 @@ class SelectedItem extends Component {
     });
   };
 
-  handleUpdate = () => {
+  handleUpdate = async () => {
     this.setState((prevState, prevProps) => {
       return { disabled: !prevState.disabled };
     });
+
     if (!this.state.disabled) {
-      this.props.onUpdateClick({
+      const updatedItem = {
         id: this.state.id,
         name: this.state.name.toLocaleLowerCase(),
         price: this.state.price,
         platform: this.state.platform,
         quantity: this.state.quantity,
         image: this.state.image
-      });
+      }
+
+      this.props.onUpdateClick(updatedItem);
+
+      const ref = firestore.collection("inventory").doc(this.state.id);
+      await ref.update(updatedItem)
+      
       this.props.history.push("/inventory");
     }
   };
-
-  handleDelete = () => {
+  
+  handleDelete = async () => {
     this.props.onDeleteClick({ id: this.state.id });
+    
+    const ref = firestore.collection("inventory").doc(this.state.id);
+    await ref.delete()
+
     this.props.history.push("/inventory");
   };
 
