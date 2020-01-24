@@ -16,18 +16,6 @@ class Navbar extends Component {
   };
 
   render() {
-    let item;
-    if (typeof this.props.currentUser == "object" && !this.props.currentUser) {
-      item = (
-        <span className="nav-item" onClick={this.handleSignIn}>
-          LOGIN
-        </span>
-      );
-    } else {
-      item = (
-        <Dropdown />
-      );
-    }
     return (
       <nav className="navbar">
         <img
@@ -38,26 +26,35 @@ class Navbar extends Component {
         />
         <ul>
           <li>
-            <span
+            {this.props.currentUser
+            ?
+            (<span
               className="nav-item"
               onClick={() => this.props.history.push("/inventory")}
             >
               INVENTORY
-            </span>
+            </span>)
+            :
+            ""}
           </li>
           <li>
-            <span
+            { this.props.currentUser
+            ?
+            (<span
               className="nav-item"
               onClick={() => this.props.history.push("/additem")}
             >
               ADD ITEM
-            </span>
+            </span>)
+            :
+              ""
+            }
           </li>
           <li>
-            {item}
+            {this.props.currentUser?<Dropdown />:""}
           </li>
           <li>
-            <CartIcon />
+            {this.props.currentUser?<CartIcon />:""}
           </li>
         </ul>
       </nav>
