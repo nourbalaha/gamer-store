@@ -24,6 +24,15 @@ class Inventory extends Component {
 
     this.props.setInventory(docs)
 
+    if(this.props.user){
+      const cartRef = firestore.collection("users").doc(this.props.user.uid).collection("cart")
+      const cartSnap = await cartRef.get()
+      let result = cartSnap.docs
+        .map(doc=>doc.data())
+      const obj ={}
+      result.forEach(doc=>obj[doc.id]=doc)
+      this.props.setCart(obj)
+    }
   }
 
   handleChange = event => {
@@ -114,14 +123,20 @@ class Inventory extends Component {
 }
 
 function mapState(state) {
-  return { inventory: state.inventory.inventory };
+  return { 
+    inventory: state.inventory.inventory,
+    user: state.auth.currentUser
+  };
 }
 
 function mapDispatch(dispatch){
   return {
     setInventory(payload){
       dispatch({type:"SET_INVENTORY",payload})
-    }
+    },
+    setCart(payload){
+      dispatch({type:"SET_CART",payload})
+    },
   }
 }
 

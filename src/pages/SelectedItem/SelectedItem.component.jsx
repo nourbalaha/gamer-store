@@ -92,7 +92,7 @@ class SelectedItem extends Component {
     }
   };
 
-  handleAddToCart = () => {
+  handleAddToCart = async () => {
     const newItem = {};
     newItem.id = this.state.id;
     newItem.name = this.state.name;
@@ -101,6 +101,21 @@ class SelectedItem extends Component {
     newItem.image = this.state.image;
 
     this.props.onAddToCartClick(newItem)
+
+    if(this.props.user){
+      const userId = this.props.user.uid
+      const ref = await firestore.collection("users").doc(userId).collection("cart").doc(this.state.id).get()
+      
+      if(ref.exists){
+        const newItem = ref.data()
+        newItem.quantity = newItem.quantity + 1
+        await firestore.collection("users").doc(userId).collection("cart").doc(this.state.id).update(newItem)
+
+      } else {
+        newItem.quantity = 1
+        await firestore.collection("users").doc(userId).collection("cart").doc(this.state.id).set(newItem)
+      }
+    }
   };
 
   render() {
@@ -189,6 +204,7 @@ function mapState(state) {
   return {
     inventory: state.inventory.inventory,
     cart: state.cart.cart,
+    user: state.auth.currentUser,
   };
 }
 

@@ -25,6 +25,12 @@ function cartReducer(state = initial_state, action) {
       return {
         cart: newCart
       };
+
+    case "SET_CART":;
+      return {
+        cart: action.payload
+      };
+
     default:
       return state;
   }

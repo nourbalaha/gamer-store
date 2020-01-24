@@ -2,10 +2,23 @@ import React, { Component } from 'react'
 import { connect } from "react-redux"
 
 import CartItem from "../../components/CartItem/CartItem.component"
+import { firestore } from "../../firebase/firebase.config"
 
 import "./Cart.styles.scss"
 
 class Cart extends Component {
+    async componentDidMount(){
+        if(this.props.user){
+            const cartRef = firestore.collection("users").doc(this.props.user.uid).collection("cart")
+            const cartSnap = await cartRef.get()
+            let result = cartSnap.docs
+              .map(doc=>doc.data())
+            const obj ={}
+            result.forEach(doc=>obj[doc.id]=doc)
+            this.props.setCart(obj)
+          }
+    }
+
     render() {
         const keys = Object.keys(this.props.cart)
         return (
@@ -30,7 +43,16 @@ class Cart extends Component {
 const mapState=state=>{
     return {
         cart: state.cart.cart,
+        user: state.auth.currentUser,
     }
 }
 
-export default connect(mapState)(Cart)
+function mapDispatch(dispatch){
+    return {
+      setCart(payload){
+        dispatch({type:"SET_CART",payload})
+      },
+    }
+  }
+
+export default connect(mapState, mapDispatch)(Cart)
