@@ -57,13 +57,13 @@ class App extends React.Component {
 
         <main>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={this.props.currentUser?Inventory:Home} />
             <Route path='/signin' component={this.props.currentUser?Inventory:SignIn} />
             <Route path='/register' component={this.props.currentUser?Inventory:Register} />
-            <Route exact path='/inventory' component={Inventory} />
-            <Route path='/additem' component={AddItem} />
-            <Route path='/inventory/:id' component={SelectedItem} />
-            <Route path='/cart' component={Cart} />
+            <Route exact path='/inventory' component={this.props.currentUser?Inventory:Home} />
+            <Route path='/additem' component={this.props.currentUser?AddItem:Home} />
+            <Route path='/inventory/:id' component={this.props.currentUser?SelectedItem:Home} />
+            <Route path='/cart' component={this.props.currentUser?Cart:Home} />
           </Switch>
         </main>
 
