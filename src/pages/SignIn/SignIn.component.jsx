@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
 
+import { firestore } from "../../firebase/firebase.config"
+
 import './SignIn.style.scss'
 
 import google from "../../assets/google-icon.png"
@@ -23,12 +25,19 @@ class SignIn extends Component {
         })
     }
 
-    handleSignInWithGoogle=()=>{
-      signInWithGoogle()
-      .then((result)=>{
-        console.log(result)
-        this.props.history.push("/inventory")
-      })
+    handleSignInWithGoogle=async ()=>{
+      await signInWithGoogle()
+      if(this.props.currentUser){
+        const cartRef = firestore.collection("users").doc(this.props.user.uid).collection("cart")
+        const cartSnap = await cartRef.get()
+        let result = cartSnap.docs
+          .map(doc=>doc.data())
+        const obj ={}
+        result.forEach(doc=>obj[doc.id]=doc)
+        this.props.setCart(obj)
+      }
+
+      this.props.history.push("/inventory")
     }
 
     handleSignIn=()=>{
@@ -90,7 +99,10 @@ function mapDispatch(dispatch) {
   return {
     onAddUser(payload) {
       dispatch({ type: "ADD_USER", payload });
-    }
+    },
+    setCart(payload){
+      dispatch({type:"SET_CART",payload})
+    },
   };
 }
 
