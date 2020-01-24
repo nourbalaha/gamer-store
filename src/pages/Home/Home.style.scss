@@ -13,21 +13,27 @@ $third-color: #FFC646;
         height: 60vh;
     }
 
-    .button {
-        background-color: $second-color;
-        border: none;
-        color: $third-color;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        -webkit-transition-duration: 0.4s;
-        transition-duration: 0.4s;
-        cursor: pointer;
-        &:hover {
-            background-color: $third-color;
-            color: $second-color;
+    .home-btn-container{
+        display: flex;
+
+        .home-btn {
+            background-color: $second-color;
+            border: none;
+            color: $third-color;
+            margin: 0 10px;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            &:hover {
+                background-color: $third-color;
+                color: $second-color;
+              }
           }
-      }
+    }
+
 }
