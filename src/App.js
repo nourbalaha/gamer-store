@@ -15,14 +15,34 @@ import Cart from './pages/Cart/Cart.component'
 import Navbar from './components/Navbar/Navbar.component'
 import Footer from './components/Footer/Footer.component'
 
-import { auth } from './firebase/firebase.config'
+import { auth, firestore } from './firebase/firebase.config'
 
 class App extends React.Component {
   componentDidMount () {
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(async user => {
       if (user) {
+        const userRef = firestore.collection("users").doc(user.uid)
+        const userSnap = await userRef.get()
+        // if it is a new user create user data
+        if(!userSnap.exists){
+          const data = {}
+          data.Email = user.email;
+          data.Name = user.displayName;
+          data.Role = "user"
+          await userRef.set(data);
+        }
+        //sync with firebase's cart
+        const cartRef = firestore.collection("users").doc(user.uid).collection("cart")
+        const cartSnap = await cartRef.get()
+        let result = cartSnap.docs
+        .map(doc=>doc.data())
+        const obj ={}
+        result.forEach(doc=>obj[doc.id]=doc)
+        this.props.setCart(obj)
+        // set user
         this.props.onAddUser(user)
       } else {
+        this.props.setCart({})
         this.props.onAddUser(null)
       }
     })
@@ -63,7 +83,10 @@ function mapDispatch (dispatch) {
   return {
     onAddUser (payload) {
       dispatch({ type: 'ADD_USER', payload })
-    }
+    },
+    setCart(payload){
+      dispatch({type:"SET_CART",payload})
+    },
   }
 }
 
