@@ -23,34 +23,36 @@ export default class Register extends Component {
         })
     }
 
-    handleSignInWithGoogle=()=>{
-      signInWithGoogle()
-      .then((result)=>{
-        console.log(result)
-        this.props.history.push("/inventory")
-      })
-    }
-
-    handleRegister=()=>{
-      auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then((result)=>{
-        const user = auth.currentUser;
-        
-        user.updateProfile({
-          displayName: this.state.name,
-        }).then(() => {
-          // Update successful.
-          this.props.history.push("/inventory")
-        })
-      })
-      .catch((error) => {
+    handleSignInWithGoogle = async ()=>{
+      try {
+        await signInWithGoogle()
+      } catch(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
         console.log(errorCode)
         console.log(errorMessage)
-      });
+      };
+      this.props.history.push("/inventory")
+    }
+
+    handleRegister = async ()=>{
+      try {
+        await auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+        const user = auth.currentUser;
+        await user.updateProfile({
+          displayName: this.state.name,
+        })
+      } catch(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log(errorCode)
+        console.log(errorMessage)
+      };
+      this.props.history.push("/inventory")
     }
 
   render () {
@@ -90,7 +92,7 @@ export default class Register extends Component {
             required
           />
 
-          <input className='btn' value='Register' onClick={this.handleRegister}/>
+          <input className='btn' type="button" value='Register' onClick={this.handleRegister} />
           <p>Already have an account? <span className="log-in" onClick={()=>this.props.history.push("/signin")}>Log In</span></p>
         </div>
       </div>

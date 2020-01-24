@@ -8,8 +8,17 @@ import profile from "../../assets/Profile-Placeholder.png"
 import { auth } from "../../firebase/firebase.config";
 
 class Dropdown extends React.Component {
-  handleSignout = () => {
-    auth.signOut();
+  handleSignout = async () => {
+    try {
+      await auth.signOut();
+    } catch(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      console.log(errorCode)
+      console.log(errorMessage)
+    };
   };
 
   render() {

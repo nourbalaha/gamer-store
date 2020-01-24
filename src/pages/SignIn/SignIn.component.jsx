@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from "react-redux"
-
-import { firestore } from "../../firebase/firebase.config"
 
 import './SignIn.style.scss'
 
@@ -25,34 +22,34 @@ class SignIn extends Component {
         })
     }
 
-    handleSignInWithGoogle=async ()=>{
-      await signInWithGoogle()
-      if(this.props.currentUser){
-        const cartRef = firestore.collection("users").doc(this.props.user.uid).collection("cart")
-        const cartSnap = await cartRef.get()
-        let result = cartSnap.docs
-          .map(doc=>doc.data())
-        const obj ={}
-        result.forEach(doc=>obj[doc.id]=doc)
-        this.props.setCart(obj)
-      }
-
-      this.props.history.push("/inventory")
-    }
-
-    handleSignIn=()=>{
-      auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(()=>{
-        this.props.history.push("/inventory")
-      })
-      .catch(function(error) {
+    handleSignInWithGoogle = async ()=>{
+      try {
+        await signInWithGoogle()
+      } catch(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
         console.log(errorCode)
         console.log(errorMessage)
-      });
+      };
+      
+      this.props.history.push("/inventory")
+    }
+    
+    handleSignIn = async ()=>{
+      try {
+        await auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+      } catch(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log(errorCode)
+        console.log(errorMessage)
+      };
+
+      this.props.history.push("/inventory")
     }
 
   render () {
@@ -91,19 +88,4 @@ class SignIn extends Component {
   }
 }
 
-function mapState(state) {
-  return { currentUser: state.auth.currentUser };
-}
-
-function mapDispatch(dispatch) {
-  return {
-    onAddUser(payload) {
-      dispatch({ type: "ADD_USER", payload });
-    },
-    setCart(payload){
-      dispatch({type:"SET_CART",payload})
-    },
-  };
-}
-
-export default connect(mapState,mapDispatch)(SignIn);
+export default SignIn;
