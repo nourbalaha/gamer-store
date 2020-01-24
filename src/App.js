@@ -41,6 +41,15 @@ class App extends React.Component {
         this.props.setCart(obj)
         // set user
         this.props.onAddUser(user)
+        
+        const adminRef = firestore.collection("users").doc(user.uid)
+        const adminSnap = await adminRef.get()
+        if(adminSnap.data().Role==="admin"){
+          this.props.setAdmin()
+        } else {
+          this.props.setUser()
+        }
+
       } else {
         this.props.setCart({})
         this.props.onAddUser(null)
@@ -61,7 +70,7 @@ class App extends React.Component {
             <Route path='/signin' component={this.props.currentUser?Inventory:SignIn} />
             <Route path='/register' component={this.props.currentUser?Inventory:Register} />
             <Route exact path='/inventory' component={this.props.currentUser?Inventory:Home} />
-            <Route path='/additem' component={this.props.currentUser?AddItem:Home} />
+            <Route path='/additem' component={this.props.currentUser&&this.props.admin?AddItem:Home} />
             <Route path='/inventory/:id' component={this.props.currentUser?SelectedItem:Home} />
             <Route path='/cart' component={this.props.currentUser?Cart:Home} />
           </Switch>
@@ -86,6 +95,12 @@ function mapDispatch (dispatch) {
     },
     setCart(payload){
       dispatch({type:"SET_CART",payload})
+    },
+    setAdmin(){
+      dispatch({type:"SET_ADMIN"})
+    },
+    setUser(){
+      dispatch({type:"SET_USER"})
     },
   }
 }

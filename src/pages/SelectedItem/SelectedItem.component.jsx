@@ -149,7 +149,9 @@ class SelectedItem extends Component {
               disabled={this.state.disabled}
             />
 
-            <select
+            {this.props.admin
+            ?
+            (<select
               className="input"
               name="platform"
               value={this.state.platform}
@@ -159,9 +161,14 @@ class SelectedItem extends Component {
               <option value="Playstation 4">Playstation 4</option>
               <option value="Xbox One">Xbox One</option>
               <option value="Nintendo Switch">Nintendo Switch</option>
-            </select>
+            </select>)
+            :
+            <p className="input">{this.state.platform}</p>
+            }
 
-            <div className="quantity-container">
+            {this.props.admin
+            ?
+            (<div className="quantity-container">
               <input
                 className="btn plus-minus"
                 type="button"
@@ -179,20 +186,36 @@ class SelectedItem extends Component {
                 onClick={this.handleInc}
                 disabled={this.state.disabled}
               />
-            </div>
-            <button
+            </div>)
+            :
+            ""
+            }
+            {this.props.admin
+            ?
+            (<button
               className="btn update"
               onClick={this.handleUpdate}
-            ><i className="fa fa-pencil" /> Update item</button>
-            <button
+            ><i className="fa fa-pencil" /> Update item</button>)
+          :
+          ""
+          }
+            {this.props.admin?
+            (<button
               className="btn delete"
               onClick={this.handleDelete}
-            ><i className="fa fa-trash" /> Delete item</button>
+            ><i className="fa fa-trash" /> Delete item</button>)
+          :
+          ""
+          }
 
-            <button
+            {!this.props.admin
+            ?
+            (<button
               className="btn add-to-cart"
               onClick={this.handleAddToCart}
-            ><i className="fa fa-shopping-bag" /> Add to cart</button>
+            ><i className="fa fa-shopping-bag" /> Add to cart</button>)
+          :
+          ""}
           </div>
         </div>
       </div>
@@ -205,6 +228,7 @@ function mapState(state) {
     inventory: state.inventory.inventory,
     cart: state.cart.cart,
     user: state.auth.currentUser,
+    admin: state.admin.admin
   };
 }
 

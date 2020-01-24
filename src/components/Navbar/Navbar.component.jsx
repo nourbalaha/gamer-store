@@ -38,7 +38,7 @@ class Navbar extends Component {
             ""}
           </li>
           <li>
-            { this.props.currentUser
+            { this.props.currentUser&&this.props.admin
             ?
             (<span
               className="nav-item"
@@ -54,7 +54,7 @@ class Navbar extends Component {
             {this.props.currentUser?<Dropdown />:""}
           </li>
           <li>
-            {this.props.currentUser?<CartIcon />:""}
+            {this.props.currentUser&&!this.props.admin?<CartIcon />:""}
           </li>
         </ul>
       </nav>
@@ -63,7 +63,10 @@ class Navbar extends Component {
 }
 
 function mapState(state) {
-  return { currentUser: state.auth.currentUser };
+  return { 
+    currentUser: state.auth.currentUser,
+    admin: state.admin.admin,
+   };
 }
 
 function mapDispatch(dispatch) {

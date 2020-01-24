@@ -40,6 +40,9 @@ class Dropdown extends React.Component {
           <span className="profile-email">
             {this.props.currentUser.email}
           </span>
+          <span className="profile-email">
+            {this.props.admin?"admin":""}
+          </span>
             </div>
           <hr />
           <span className="link" onClick={this.handleSignout}>
@@ -52,7 +55,7 @@ class Dropdown extends React.Component {
 }
 
 function mapState(state) {
-  return { currentUser: state.auth.currentUser };
+  return { currentUser: state.auth.currentUser, admin: state.admin.admin };
 }
 
 export default connect(mapState, null)(Dropdown);
