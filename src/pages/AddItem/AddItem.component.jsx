@@ -20,6 +20,12 @@ class AddItem extends Component {
     };
   }
 
+  componentDidMount(){
+    if(!this.props.admin){
+      this.props.history.push("/inventory")
+    }
+  }
+
   handleSubmit = async e => {
     e.preventDefault();
     
@@ -108,7 +114,10 @@ class AddItem extends Component {
 }
 
 function mapState(state) {
-  return { inventory: state.inventory.inventory };
+  return { 
+    inventory: state.inventory.inventory,
+    admin: state.admin.admin,
+  };
 }
 
 function mapDispatch(dispatch) {

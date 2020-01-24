@@ -70,7 +70,7 @@ class App extends React.Component {
             <Route path='/signin' component={this.props.currentUser?Inventory:SignIn} />
             <Route path='/register' component={this.props.currentUser?Inventory:Register} />
             <Route exact path='/inventory' component={this.props.currentUser?Inventory:Home} />
-            <Route path='/additem' component={this.props.currentUser&&this.props.admin?AddItem:Home} />
+            <Route path='/additem' component={this.props.currentUser?AddItem:Home} />
             <Route path='/inventory/:id' component={this.props.currentUser?SelectedItem:Home} />
             <Route path='/cart' component={this.props.currentUser?Cart:Home} />
           </Switch>
@@ -85,7 +85,9 @@ class App extends React.Component {
 }
 
 function mapState(state) {
-  return { currentUser: state.auth.currentUser };
+  return { 
+    currentUser: state.auth.currentUser,
+  };
 }
 
 function mapDispatch (dispatch) {
