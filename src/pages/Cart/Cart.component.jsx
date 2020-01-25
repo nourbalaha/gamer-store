@@ -7,16 +7,30 @@ import { firestore } from "../../firebase/firebase.config"
 import "./Cart.styles.scss"
 
 class Cart extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         total: 0,
+      }
+    }
+    
     async componentDidMount(){
-        if(this.props.user){
-            const cartRef = firestore.collection("users").doc(this.props.user.uid).collection("cart")
-            const cartSnap = await cartRef.get()
-            let result = cartSnap.docs
-              .map(doc=>doc.data())
-            const obj ={}
-            result.forEach(doc=>obj[doc.id]=doc)
-            this.props.setCart(obj)
-          }
+      if(this.props.user){
+        const cartRef = firestore.collection("users").doc(this.props.user.uid).collection("cart")
+        const cartSnap = await cartRef.get()
+        let result = cartSnap.docs
+        .map(doc=>doc.data())
+        const obj ={}
+        result.forEach(doc=>obj[doc.id]=doc)
+        this.props.setCart(obj)
+      }
+
+      const keys = Object.keys(this.props.cart)
+      let total = keys.map(key=>Number(this.props.cart[key].price)).reduce((acc,val)=>acc+val)
+      this.setState({
+        total
+      })
     }
 
     render() {
@@ -35,6 +49,8 @@ class Cart extends Component {
                     :
                     <h2>The cart is empty</h2>
                 }
+              <h3>Total: {this.state.total}$</h3>
+              <button className="checkout-btn">Continue to checkout</button>
             </div>
         )
     }
