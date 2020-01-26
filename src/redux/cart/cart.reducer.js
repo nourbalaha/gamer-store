@@ -16,19 +16,19 @@ function cartReducer(state = initial_state, action) {
         newState[action.payload.id].quantity = 1;
       }
       return {
-        cart: newState
+        cart: newState,
       };
 
     case "REMOVE_ITEM":
       const newCart= JSON.parse(JSON.stringify(state.cart));
       delete newCart[action.payload.id];
       return {
-        cart: newCart
+        cart: newCart,
       };
 
     case "SET_CART":;
       return {
-        cart: action.payload
+        cart: action.payload,
       };
 
     default:

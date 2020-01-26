@@ -7,14 +7,7 @@ import { firestore } from "../../firebase/firebase.config"
 import "./Cart.styles.scss"
 
 class Cart extends Component {
-    constructor(props) {
-      super(props)
-    
-      this.state = {
-         total: 0,
-      }
-    }
-    
+  
     async componentDidMount(){
       if(this.props.user){
         const cartRef = firestore.collection("users").doc(this.props.user.uid).collection("cart")
@@ -25,16 +18,15 @@ class Cart extends Component {
         result.forEach(doc=>obj[doc.id]=doc)
         this.props.setCart(obj)
       }
-
-      const keys = Object.keys(this.props.cart)
-      let total = keys.map(key=>Number(this.props.cart[key].price)).reduce((acc,val)=>acc+val)
-      this.setState({
-        total
-      })
     }
-
+    
     render() {
-        const keys = Object.keys(this.props.cart)
+      const keys = Object.keys(this.props.cart)
+      let total = keys.length > 0
+      ?
+      keys.map(key=>Number(this.props.cart[key].price)*Number(this.props.cart[key].quantity)).reduce((acc,val)=>acc+val)
+      :
+      0
         return (
             <div className="cart-page">
                 {
@@ -49,7 +41,7 @@ class Cart extends Component {
                     :
                     <h2>The cart is empty</h2>
                 }
-              <h3>Total: {this.state.total}$</h3>
+              <h3>Total: {total}$</h3>
               <button className="checkout-btn">Continue to checkout</button>
             </div>
         )
