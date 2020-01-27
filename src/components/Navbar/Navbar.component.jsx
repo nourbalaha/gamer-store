@@ -26,35 +26,33 @@ class Navbar extends Component {
         />
         <ul>
           <li>
-            {this.props.currentUser
-            ?
+            {
+            this.props.currentUser
+            &&
             (<span
               className="nav-item"
               onClick={() => this.props.history.push("/inventory")}
             >
               INVENTORY
             </span>)
-            :
-            ""}
+            }
           </li>
           <li>
-            { this.props.currentUser&&this.props.admin
-            ?
+            { (this.props.currentUser&&this.props.admin)
+            &&
             (<span
               className="nav-item"
               onClick={() => this.props.history.push("/additem")}
             >
               ADD ITEM
             </span>)
-            :
-              ""
             }
           </li>
           <li>
-            {this.props.currentUser?<Dropdown />:""}
+            {this.props.currentUser && <Dropdown />}
           </li>
           <li>
-            {this.props.currentUser&&!this.props.admin?<CartIcon />:""}
+            {(this.props.currentUser&&!this.props.admin) && <CartIcon />}
           </li>
         </ul>
       </nav>
