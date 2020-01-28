@@ -1,8 +1,11 @@
 import { applyMiddleware, createStore } from 'redux'
 import logger from 'redux-logger'
+import thunk from "redux-thunk"
 import { persistStore } from 'redux-persist'
 
 import persistedReducer from "./rootReducer"
 
-export const store = createStore(persistedReducer,applyMiddleware(logger))
+const middleware = [logger, thunk]
+
+export const store = createStore(persistedReducer,applyMiddleware(...middleware))
 export const persistor = persistStore(store)

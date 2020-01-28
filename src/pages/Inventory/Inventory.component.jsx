@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import Item from "../../components/Item/Item.component";
 import { firestore } from "../../firebase/firebase.config";
+import { setCart } from "../../redux/cart/cart.actions"
+
 
 import "./Inventory.style.scss";
 
@@ -24,15 +26,7 @@ class Inventory extends Component {
 
     this.props.setInventory(docs)
 
-    if(this.props.user){
-      const cartRef = firestore.collection("users").doc(this.props.user.uid).collection("cart")
-      const cartSnap = await cartRef.get()
-      let result = cartSnap.docs
-        .map(doc=>doc.data())
-      const obj ={}
-      result.forEach(doc=>obj[doc.id]=doc)
-      this.props.setCart(obj)
-    }
+    this.props.updateCart()
   }
 
   handleChange = event => {
@@ -134,8 +128,8 @@ function mapDispatch(dispatch){
     setInventory(payload){
       dispatch({type:"SET_INVENTORY",payload})
     },
-    setCart(payload){
-      dispatch({type:"SET_CART",payload})
+    updateCart(){
+      dispatch(setCart())
     },
   }
 }

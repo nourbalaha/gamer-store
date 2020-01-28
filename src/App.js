@@ -16,6 +16,7 @@ import Navbar from './components/Navbar/Navbar.component'
 import Footer from './components/Footer/Footer.component'
 
 import { auth, firestore } from './firebase/firebase.config'
+import { setCart } from "./redux/cart/cart.actions.js"
 
 class App extends React.Component {
   componentDidMount () {
@@ -31,16 +32,10 @@ class App extends React.Component {
           data.Role = "user"
           await userRef.set(data);
         }
-        //sync with firebase's cart
-        const cartRef = firestore.collection("users").doc(user.uid).collection("cart")
-        const cartSnap = await cartRef.get()
-        let result = cartSnap.docs
-        .map(doc=>doc.data())
-        const obj ={}
-        result.forEach(doc=>obj[doc.id]=doc)
-        this.props.setCart(obj)
         // set user
         this.props.onAddUser(user)
+        //sync with firebase's cart
+        this.props.updateCart()
         
         const adminRef = firestore.collection("users").doc(user.uid)
         const adminSnap = await adminRef.get()
@@ -103,6 +98,9 @@ function mapDispatch (dispatch) {
     },
     setUser(){
       dispatch({type:"SET_USER"})
+    },
+    updateCart(){
+      dispatch(setCart())
     },
   }
 }
