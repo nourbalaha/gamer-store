@@ -3,18 +3,13 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 
-import { firestore } from "../../firebase/firebase.config"
+import { removeItem } from "../../redux/cart/cart.actions"
 
 import "./CartItem.style.scss";
 
 export class CartItem extends Component {
   removeFromCart = async () => {
-    this.props.onRemoveFromCart({id: this.props.id})
-
-    if(this.props.user){
-      const ref = firestore.collection("users").doc(this.props.user.uid).collection("cart").doc(this.props.id)
-      await ref.delete()
-    }
+    this.props.removeItemFromCart({id: this.props.id})
   };
   render() {
     return (
@@ -58,9 +53,9 @@ const mapState=state=>{
 
 const mapDispatch = dispatch=>{
     return {
-        onRemoveFromCart(payload) {
-          dispatch({ type: "REMOVE_ITEM", payload });
-        }
+        removeItemFromCart(payload) {
+          dispatch(removeItem(payload.id));
+        },
     }
 }
 

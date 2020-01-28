@@ -1,5 +1,4 @@
 import { firestore } from "../../firebase/firebase.config"
-// import {store} from "../store"
 
 export const setCart = () => {
     return async (dispatch, getState) => {
@@ -13,6 +12,18 @@ export const setCart = () => {
         dispatch({
             type: "SET_CART",
             payload: obj,
+        })
+    }
+}
+
+export const removeItem = (id) => {
+    return async (dispatch, getState) => {
+        const uid = getState().auth.currentUser.uid; 
+        const ref = firestore.collection("users").doc(uid).collection("cart").doc(id)
+        await ref.delete()
+        dispatch({
+            type: "REMOVE_ITEM",
+            payload: {id},
         })
     }
 }
