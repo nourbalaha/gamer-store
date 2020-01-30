@@ -17,7 +17,7 @@ class Cart extends Component {
       const keys = Object.keys(this.props.cart)
       let total = keys.length > 0
       ?
-      keys.map(key=>Number(this.props.cart[key].price)*Number(this.props.cart[key].quantity)).reduce((acc,val)=>acc+val)
+      keys.map(key=>Number(this.props.cart[key].price)*Number(this.props.cart[key].quantity)).reduce((acc,val)=>acc+val,0)
       :
       0
         return (
@@ -34,8 +34,8 @@ class Cart extends Component {
                     :
                     <h2>The cart is empty</h2>
                 }
-              <h3>Total: {total}$</h3>
-              <button className="checkout-btn">Continue to checkout</button>
+              {total>0 && <h3>Total: {total}$</h3>}
+              {total>0 && <button className="checkout-btn">Continue to checkout</button>}
             </div>
         )
     }
