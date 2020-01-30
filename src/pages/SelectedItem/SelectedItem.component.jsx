@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { firestore } from "../../firebase/firebase.config"
+import { addItem } from "../../redux/cart/cart.actions"
 
 import "./SelectedItem.style.scss";
 
@@ -100,22 +101,7 @@ class SelectedItem extends Component {
     newItem.platform = this.state.platform;
     newItem.image = this.state.image;
 
-    this.props.onAddToCartClick(newItem)
-
-    if(this.props.user){
-      const userId = this.props.user.uid
-      const ref = await firestore.collection("users").doc(userId).collection("cart").doc(this.state.id).get()
-      
-      if(ref.exists){
-        const newItem = ref.data()
-        newItem.quantity = newItem.quantity + 1
-        await firestore.collection("users").doc(userId).collection("cart").doc(this.state.id).update(newItem)
-
-      } else {
-        newItem.quantity = 1
-        await firestore.collection("users").doc(userId).collection("cart").doc(this.state.id).set(newItem)
-      }
-    }
+    this.props.addToCart(newItem)
   };
 
   render() {
@@ -242,6 +228,9 @@ function mapDispatch(dispatch) {
     },
     onAddToCartClick(payload) {
       dispatch({ type: "ADD_TO_CART", payload });
+    },
+    addToCart(payload) {
+      dispatch(addItem(payload));
     },
   };
 }

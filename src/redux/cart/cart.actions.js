@@ -16,6 +16,28 @@ export const setCart = () => {
     }
 }
 
+export const addItem = (item) => {
+    return async (dispatch, getState) => {
+        const uid = getState().auth.currentUser.uid; 
+        const ref = await firestore.collection("users").doc(uid).collection("cart").doc(item.id).get()
+        
+        if(ref.exists){
+            const newItem = ref.data()
+            newItem.quantity = newItem.quantity + 1
+            await firestore.collection("users").doc(uid).collection("cart").doc(item.id).update(newItem)
+    
+        } else {
+            item.quantity = 1
+            await firestore.collection("users").doc(uid).collection("cart").doc(item.id).set(item)
+        }
+
+        dispatch({
+            type: "REMOVE_ITEM",
+            payload: item,
+        })
+    }
+}
+
 export const removeItem = (id) => {
     return async (dispatch, getState) => {
         const uid = getState().auth.currentUser.uid; 
