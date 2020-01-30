@@ -32,7 +32,7 @@ export const addItem = (item) => {
         }
 
         dispatch({
-            type: "REMOVE_ITEM",
+            type: "ADD_TO_CART",
             payload: item,
         })
     }
