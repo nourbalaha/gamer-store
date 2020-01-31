@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Item from "../../components/Item/Item.component";
-import { firestore } from "../../firebase/firebase.config";
 import { setCart } from "../../redux/cart/cart.actions"
+import { updateInventory } from "../../redux/inventory/inventory.actions"
 
 
 import "./Inventory.style.scss";
@@ -18,14 +18,8 @@ class Inventory extends Component {
     };
   }
 
-  async componentDidMount() {
-    let ref = firestore.collection("inventory");
-
-    let items = await ref.get()
-    let docs = items.docs.map(doc=>doc.data())
-
-    this.props.setInventory(docs)
-
+  componentDidMount() {
+    this.props.updateInventory()
     this.props.updateCart()
   }
 
@@ -125,11 +119,11 @@ function mapState(state) {
 
 function mapDispatch(dispatch){
   return {
-    setInventory(payload){
-      dispatch({type:"SET_INVENTORY",payload})
-    },
     updateCart(){
       dispatch(setCart())
+    },
+    updateInventory(){
+      dispatch(updateInventory())
     },
   }
 }
