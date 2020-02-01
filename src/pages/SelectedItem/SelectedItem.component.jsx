@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { firestore } from "../../firebase/firebase.config"
 import { addItem } from "../../redux/cart/cart.actions"
+import { updateItem, deleteItem } from "../../redux/inventory/inventory.actions"
 
 import "./SelectedItem.style.scss";
 
@@ -42,7 +42,7 @@ class SelectedItem extends Component {
     });
   };
 
-  handleUpdate = async () => {
+  handleUpdate = () => {
     this.setState((prevState, prevProps) => {
       return { disabled: !prevState.disabled };
     });
@@ -57,20 +57,14 @@ class SelectedItem extends Component {
         image: this.state.image
       }
 
-      this.props.onUpdateClick(updatedItem);
-
-      const ref = firestore.collection("inventory").doc(this.state.id);
-      await ref.update(updatedItem)
+      this.props.updateItem(updatedItem)
       
       this.props.history.push("/inventory");
     }
   };
   
-  handleDelete = async () => {
-    this.props.onDeleteClick({ id: this.state.id });
-    
-    const ref = firestore.collection("inventory").doc(this.state.id);
-    await ref.delete()
+  handleDelete = () => {
+    this.props.deleteItem(this.props.match.params.id)
 
     this.props.history.push("/inventory");
   };
@@ -93,7 +87,7 @@ class SelectedItem extends Component {
     }
   };
 
-  handleAddToCart = async () => {
+  handleAddToCart = () => {
     const newItem = {};
     newItem.id = this.state.id;
     newItem.name = this.state.name;
@@ -220,17 +214,14 @@ function mapState(state) {
 
 function mapDispatch(dispatch) {
   return {
-    onUpdateClick(payload) {
-      dispatch({ type: "UPDATE_ITEM", payload });
-    },
-    onDeleteClick(payload) {
-      dispatch({ type: "DELETE_ITEM", payload });
-    },
-    onAddToCartClick(payload) {
-      dispatch({ type: "ADD_TO_CART", payload });
-    },
     addToCart(payload) {
       dispatch(addItem(payload));
+    },
+    updateItem(payload) {
+      dispatch(updateItem(payload));
+    },
+    deleteItem(payload) {
+      dispatch(deleteItem(payload));
     },
   };
 }

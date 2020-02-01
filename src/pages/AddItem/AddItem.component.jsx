@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { firestore } from "../../firebase/firebase.config"
 
+import { addItem } from "../../redux/inventory/inventory.actions"
 import "./AddItem.style.scss";
 
 import GameCover from "../../assets/Game Cover Placeholder.jpg"
@@ -29,18 +29,14 @@ class AddItem extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     
-    const ref = await firestore.collection("inventory").doc()
-
     const newItem = this.state;
-    newItem.id = ref.id;
     newItem.name = newItem.name.toLowerCase();
     if(!this.state.image) newItem.image=GameCover;
     newItem.price=Number(newItem.price)
     newItem.quantity=Number(newItem.quantity)
-    this.props.onAddClick(newItem)
-    
-    await ref.set(newItem)
 
+    await this.props.addItem(newItem)
+    
     this.props.history.push("/inventory")
   };
 
@@ -122,9 +118,9 @@ function mapState(state) {
 
 function mapDispatch(dispatch) {
   return {
-    onAddClick(payload) {
-      dispatch({ type: "ADD_ITEM", payload });
-    }
+    addItem(payload) {
+      dispatch(addItem(payload));
+    },
   };
 }
 
