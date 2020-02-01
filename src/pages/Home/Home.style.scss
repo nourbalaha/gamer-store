@@ -35,5 +35,10 @@ $third-color: #FFC646;
               }
           }
     }
-
+    @media screen and (max-width:375px){
+        .image{
+            width: 98vw;
+            height: auto;
+        }
+    }
 }

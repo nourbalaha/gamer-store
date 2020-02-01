@@ -21,15 +21,15 @@ export class CartItem extends Component {
         />
         <div className="cart-item-details">
           <span className="cart-item-name" onClick={()=>this.props.history.push(`/inventory/${this.props.id}`)}>
-            {this.props.name}
+            {this.props.name.length>20?this.props.name.slice(0,20)+"...":this.props.name}
           </span>
-          <span>
+          <span className="cart-item-price">
             Price: {this.props.price} $
           </span>
-          <span>
+          <span className="cart-item-platform">
             Platform: {this.props.platform}
           </span>
-          <span>
+          <span className="cart-item-quantity">
             Quantity: {this.props.quantity}
           </span>
         </div>

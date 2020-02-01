@@ -9,7 +9,7 @@ $delete-color: #f44336;
   border-radius: 5px;
   padding: 10px 30px;
   margin: 5px;
-  min-width: 40vw;
+  min-width: 400px;
   .cart-item-image {
     width: 60px;
     border-radius: 5px;
@@ -47,6 +47,31 @@ $delete-color: #f44336;
       &:hover {
         color: $delete-color;
         background-color: white;
+      }
+    }
+  }
+
+  @media screen and (max-width:375px){
+    padding: 10px;
+    margin: 5px;
+    min-width: 300px;
+    .cart-item-image {
+      width: 40px;
+      margin-right: 10px;
+    }
+    .cart-item-details {
+      .cart-item-name {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+      .cart-item-price{
+        font-size: 14px;
+      }
+      .cart-item-platform{
+        font-size: 14px;
+      }
+      .cart-item-quantity{
+        font-size: 14px;
       }
     }
   }

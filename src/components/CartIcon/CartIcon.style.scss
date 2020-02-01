@@ -12,4 +12,14 @@
         font-weight: bold;
         color: #FD9429;
     }
+    @media screen and (max-width: 375px){
+        margin-left: 20px;
+        .cart{
+            width: 20px;
+        }
+        .cart-counter{
+            right:  13px;
+            font-size: 9px;
+        }
+    }
 }

@@ -66,4 +66,20 @@ $third-color: #FFC646;
             border-radius: 5px;
         }
     }
+    @media screen and (max-width: 375px){
+        .add-item-form{
+            width: 90vw;
+            padding: 30px 0;
+
+            .btn{
+                width: 75vw;
+            }
+            .input{
+                width: 75vw;
+            }
+            .list{
+                width: 75vw;
+            }
+        }
+    }
 }

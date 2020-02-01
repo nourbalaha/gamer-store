@@ -38,4 +38,20 @@ $orange: #FD9429;
       padding: 0 10px;
     }
   }
+
+  @media screen and (max-width:375px){
+    padding: 10px;
+    .logo{
+      display: none;
+    }
+    .nav-item{
+      font-size: 16px;
+    }
+    ul {
+  
+      li {
+        padding: 0 5px;
+      }
+    }
+  }
 }

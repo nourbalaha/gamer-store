@@ -89,4 +89,18 @@ $google-color:#008DF2;
             cursor: pointer;
         }
     }
+    @media screen and (max-width:375px){
+        .sign-in-form{
+            width: 90vw;
+            .google{
+                width: 75vw;
+              }
+            .btn{
+                width: 75vw;
+            }
+            .input{
+                width: 75vw;
+            }
+        }
+    }
 }
