@@ -112,7 +112,7 @@ class SelectedItem extends Component {
               name="name"
               type="text"
               className="item-name input"
-              value={this.state.name}
+              value={this.state.name.length>25?this.state.name.slice(0,25)+"...":this.state.name}
               onChange={this.handleChange}
               disabled={this.state.disabled}
             />

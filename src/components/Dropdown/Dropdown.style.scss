@@ -71,4 +71,9 @@ $orange: #FD9429;
             }
         }
     }
+    @media screen and (max-width: 320px){
+        .dropdown-content {
+            position: static;
+        }
+    }
   }

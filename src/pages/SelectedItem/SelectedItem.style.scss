@@ -1,6 +1,6 @@
-$main-color: #B2D8D7;
-$second-color: #9C6269;
-$third-color: #FFC646;
+$main-color: #b2d8d7;
+$second-color: #9c6269;
+$third-color: #ffc646;
 .selected-item {
   display: flex;
   justify-content: center;
@@ -12,19 +12,20 @@ $third-color: #FFC646;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
     min-height: 30vh;
     background-color: #ccc;
     padding: 30px;
     border-radius: 5px;
-    box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
-}
-.item-image {
+    box-shadow: rgba(0, 0, 0, .25) 0px 3px 3px 0;
+  }
+  .item-image {
     height: 300px;
-    margin-right: 50px;
+    margin-right: 20px;
     border-radius: 5px;
-    box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
-}
-.details {
+    box-shadow: rgba(0, 0, 0, .25) 0px 3px 3px 0;
+  }
+  .details {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,22 +33,22 @@ $third-color: #FFC646;
     background-color: #bbb;
     padding-bottom: 20px;
     border-radius: 5px;
-    box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
+    box-shadow: rgba(0, 0, 0, .25) 0px 3px 3px 0;
 
-    .input{
-        color: black;
-        background-color: #bbb;
-        border: none;
-        font-size: 16px;
-        margin: 5px 0;
+    .input {
+      color: black;
+      background-color: #bbb;
+      border: none;
+      font-size: 16px;
+      margin: 5px 0;
     }
 
-    .item-name{
-        font-size: 20px;
-        font-weight: bold;
-        margin: 20px 0;
-        text-transform: capitalize;
-        width:400px;
+    .item-name {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 20px 0;
+      text-transform: capitalize;
+      width: 300px;
     }
 
     .btn {
@@ -100,5 +101,53 @@ $third-color: #FFC646;
         background-color: white;
       }
     }
+  }
+
+  @media screen and (max-width: 640px) {
+      .wrapper {
+        flex-direction: column;
+        padding: 10px;
+      }
+      .item-image {
+        width: 250px;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      .details {
+        box-shadow: none;
+        .input {
+          font-size: 16px;
+          margin: 5px 0;
+        }
+    
+        .item-name {
+          font-size: 18px;
+          width: 250px;
+        }
+      }
+  }
+  @media screen and (max-width: 320px) {
+    .wrapper{
+      min-width: 200px;
+
+      }
+      .item-image {
+        width: 90vw;
+        height: auto;
+      }
+      .details {
+        .input {
+          font-size: 0.8rm;
+        }
+    
+        .item-name {
+          font-size: 1rm;
+          width: 90vw;
+        }
+        .btn {
+          font-size: 0.8rm;
+        }
+      }
   }
 }

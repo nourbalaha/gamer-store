@@ -75,4 +75,22 @@ $delete-color: #f44336;
       }
     }
   }
+
+  @media screen and (max-width:320px){
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 7px;
+    min-width: 85vw;
+    .cart-item-image {
+      display: none;
+    }
+    .cart-item-buttons {
+      margin-left: 0;
+      .cart-item-remove-button {
+        width: 80vw;
+      }
+    }
+  }
 }
