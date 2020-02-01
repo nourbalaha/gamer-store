@@ -39,7 +39,8 @@ $orange: #FD9429;
     }
   }
 
-  @media screen and (max-width:375px){
+  @media screen and (max-width:640px){
+    justify-content: center;
     padding: 10px;
     .logo{
       display: none;
