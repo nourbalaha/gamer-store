@@ -58,6 +58,8 @@ class SelectedItem extends Component {
       }
 
       this.props.updateItem(updatedItem)
+
+      this.props.addFlashMsg({msg:"Item Updated Successfully!", type:"success"})
       
       this.props.history.push("/inventory");
     }
@@ -65,6 +67,8 @@ class SelectedItem extends Component {
   
   handleDelete = () => {
     this.props.deleteItem(this.props.match.params.id)
+
+    this.props.addFlashMsg({msg:"Item Deleted Successfully!", type:"success"})
 
     this.props.history.push("/inventory");
   };
@@ -96,6 +100,9 @@ class SelectedItem extends Component {
     newItem.image = this.state.image;
 
     this.props.addToCart(newItem)
+
+    this.props.addFlashMsg({msg:"Item Added To Cart Successfully!", type:"success"})
+
   };
 
   render() {
@@ -204,7 +211,7 @@ function mapState(state) {
     inventory: state.inventory.inventory,
     cart: state.cart.cart,
     user: state.auth.currentUser,
-    admin: state.admin.admin
+    admin: state.admin.admin,
   };
 }
 
@@ -218,6 +225,9 @@ function mapDispatch(dispatch) {
     },
     deleteItem(payload) {
       dispatch(deleteItem(payload));
+    },
+    addFlashMsg(payload){
+      dispatch({type:"ADD_MSG", payload})
     },
   };
 }

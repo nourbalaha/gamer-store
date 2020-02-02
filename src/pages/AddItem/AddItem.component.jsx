@@ -36,6 +36,9 @@ class AddItem extends Component {
     newItem.quantity=Number(newItem.quantity)
 
     await this.props.addItem(newItem)
+
+    this.props.addFlashMsg({msg:"Item Added Successfully!", type:"success"})
+
     
     this.props.history.push("/inventory")
   };
@@ -120,6 +123,9 @@ function mapDispatch(dispatch) {
   return {
     addItem(payload) {
       dispatch(addItem(payload));
+    },
+    addFlashMsg(payload){
+      dispatch({type:"ADD_MSG", payload})
     },
   };
 }

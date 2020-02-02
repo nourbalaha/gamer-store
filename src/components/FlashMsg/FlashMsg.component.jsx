@@ -22,12 +22,6 @@ class FlashMsg extends Component {
     }
 }
 
-const mapState = state => {
-    return {
-        flash: state.flash.messages,
-    }
-}
-
 const mapDispatch = dispatch => {
     return {
         deleteMsg(payload){
@@ -36,5 +30,5 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default connect(mapState, mapDispatch)(FlashMsg);
+export default connect(null, mapDispatch)(FlashMsg);
 

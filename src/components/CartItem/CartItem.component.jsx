@@ -10,6 +10,7 @@ import "./CartItem.style.scss";
 export class CartItem extends Component {
   removeFromCart = async () => {
     this.props.removeItemFromCart({id: this.props.id})
+    this.props.addFlashMsg({msg:"Item Removed From Cart!", type: "success"})
   };
   render() {
     return (
@@ -55,6 +56,9 @@ const mapDispatch = dispatch=>{
     return {
         removeItemFromCart(payload) {
           dispatch(removeItem(payload.id));
+        },
+        addFlashMsg(payload){
+          dispatch({type:"ADD_MSG", payload})
         },
     }
 }
