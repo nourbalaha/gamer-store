@@ -13,12 +13,7 @@ class Dropdown extends React.Component {
       await auth.signOut();
       this.props.addFlashMsg({msg:"You Have Been Logged Out Succefully!", type: "success", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
     } catch(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-      console.log(errorCode)
-      console.log(errorMessage)
+      this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
     };
   };
 
