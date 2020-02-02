@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from "react-redux"
 
 import './SignIn.style.scss'
 
@@ -25,13 +26,9 @@ class SignIn extends Component {
     handleSignInWithGoogle = async ()=>{
       try {
         await signInWithGoogle()
+        this.props.addFlashMsg({msg:"You Have Been Logged In Successfully!", type: "success", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
       } catch(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        console.log(errorCode)
-        console.log(errorMessage)
+        this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
       };
       
       this.props.history.push("/inventory")
@@ -40,13 +37,9 @@ class SignIn extends Component {
     handleSignIn = async ()=>{
       try {
         await auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+        this.props.addFlashMsg({msg:"You Have Been Logged In Successfully!", type: "success", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
       } catch(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        console.log(errorCode)
-        console.log(errorMessage)
+        this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
       };
 
       this.props.history.push("/inventory")
@@ -88,4 +81,18 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapState = state => {
+  return {
+    messages: state.flash.messages
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    addFlashMsg(payload){
+      dispatch({type:"ADD_MSG", payload})
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(SignIn);

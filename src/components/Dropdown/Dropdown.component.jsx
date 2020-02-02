@@ -11,6 +11,7 @@ class Dropdown extends React.Component {
   handleSignout = async () => {
     try {
       await auth.signOut();
+      this.props.addFlashMsg({msg:"You Have Been Logged Out Succefully!", type: "success", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
     } catch(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -55,7 +56,19 @@ class Dropdown extends React.Component {
 }
 
 function mapState(state) {
-  return { currentUser: state.auth.currentUser, admin: state.admin.admin };
+  return { 
+    currentUser: state.auth.currentUser, 
+    admin: state.admin.admin,
+    messages: state.flash.messages,
+  }
 }
 
-export default connect(mapState, null)(Dropdown);
+function mapDispatch(dispatch){
+  return {
+    addFlashMsg(payload){
+      dispatch({type:"ADD_MSG", payload})
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Dropdown);

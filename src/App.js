@@ -1,9 +1,9 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+// CSS
 import './App.css'
-
+// Pages
 import Inventory from './pages/Inventory/Inventory.component'
 import SelectedItem from './pages/SelectedItem/SelectedItem.component'
 import AddItem from './pages/AddItem/AddItem.component'
@@ -11,15 +11,18 @@ import Home from './pages/Home/Home.component'
 import SignIn from './pages/SignIn/SignIn.component'
 import Register from './pages/Register/Register.component'
 import Cart from './pages/Cart/Cart.component'
-
+// Components
 import Navbar from './components/Navbar/Navbar.component'
 import Footer from './components/Footer/Footer.component'
-
+import FlashMsg from "./components/FlashMsg/FlashMsg.component"
+// Firebase
 import { auth, firestore } from './firebase/firebase.config'
+// Redux
 import { setCart } from "./redux/cart/cart.actions.js"
 
 class App extends React.Component {
   componentDidMount () {
+    // this.props.resetMsg()
     auth.onAuthStateChanged(async user => {
       if (user) {
         const userRef = firestore.collection("users").doc(user.uid)
@@ -31,6 +34,8 @@ class App extends React.Component {
           data.Name = user.displayName;
           data.Role = "user"
           await userRef.set(data);
+          this.props.addFlashMsg({msg:"User Registration Successful!", type: "success", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+
         }
         // set user
         this.props.onAddUser(user)
@@ -57,6 +62,11 @@ class App extends React.Component {
       <div className='App'>
         <header className='App-header'>
           <Navbar />
+          {
+          this.props.messages.length>0 && this.props.messages.map(msg=>
+          <FlashMsg id={msg.id} msg={msg.msg} type={msg.type} />
+          )
+          }
         </header>
 
         <main>
@@ -82,6 +92,7 @@ class App extends React.Component {
 function mapState(state) {
   return { 
     currentUser: state.auth.currentUser,
+    messages: state.flash.messages,
   };
 }
 
@@ -102,6 +113,12 @@ function mapDispatch (dispatch) {
     updateCart(){
       dispatch(setCart())
     },
+    // resetMsg(){
+    //   dispatch({type:"RESET_MSG"})
+    // },
+    addFlashMsg(payload){
+      dispatch({type:"ADD_MSG", payload})
+    }
   }
 }
 
