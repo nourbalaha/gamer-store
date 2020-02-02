@@ -35,14 +35,18 @@ class SignIn extends Component {
     }
     
     handleSignIn = async ()=>{
-      try {
-        await auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-        this.props.addFlashMsg({msg:"You Have Been Logged In Successfully!", type: "success", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
-      } catch(error) {
-        this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
-      };
+      if( this.state.email.length>0  && this.state.password.length>0 ){
+        try {
+          await auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+          this.props.addFlashMsg({msg:"You Have Been Logged In Successfully!", type: "success", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+        } catch(error) {
+          this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+        };
+        this.props.history.push("/inventory")
+      } else {
+        this.props.addFlashMsg({msg:"please enter required field", type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+      }
 
-      this.props.history.push("/inventory")
     }
 
   render () {

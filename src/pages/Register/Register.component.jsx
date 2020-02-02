@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from "react-redux"
 
 import './Register.style.scss'
 
@@ -6,7 +7,7 @@ import google from "../../assets/google-icon.png"
 
 import { auth, signInWithGoogle } from "../../firebase/firebase.config"
 
-export default class Register extends Component {
+class Register extends Component {
     constructor(props) {
         super(props)
     
@@ -31,18 +32,22 @@ export default class Register extends Component {
       };
       this.props.history.push("/inventory")
     }
-
+    
     handleRegister = async ()=>{
-      try {
-        await auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
-        const user = auth.currentUser;
-        await user.updateProfile({
-          displayName: this.state.name,
-        })
-      } catch(error) {
-        this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
-      };
-      this.props.history.push("/inventory")
+      if(this.state.name.length>0 && this.state.email.length>0  && this.state.password.length>0 ){
+        try {
+          await auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+          const user = auth.currentUser;
+          await user.updateProfile({
+            displayName: this.state.name,
+          })
+        } catch(error) {
+          this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+        };
+        this.props.history.push("/inventory")
+      } else {
+        this.props.addFlashMsg({msg:"please enter required field", type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+      }
     }
 
   render () {
@@ -89,3 +94,19 @@ export default class Register extends Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+    messages: state.flash.messages,
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    addFlashMsg(payload){
+      dispatch({type:"ADD_MSG", payload})
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Register);
