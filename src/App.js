@@ -22,7 +22,6 @@ import { setCart } from "./redux/cart/cart.actions.js"
 
 class App extends React.Component {
   componentDidMount () {
-    // this.props.resetMsg()
     auth.onAuthStateChanged(async user => {
       if (user) {
         const userRef = firestore.collection("users").doc(user.uid)
@@ -113,9 +112,6 @@ function mapDispatch (dispatch) {
     updateCart(){
       dispatch(setCart())
     },
-    // resetMsg(){
-    //   dispatch({type:"RESET_MSG"})
-    // },
     addFlashMsg(payload){
       dispatch({type:"ADD_MSG", payload})
     }
