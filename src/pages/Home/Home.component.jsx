@@ -16,8 +16,8 @@ export default class Home extends Component {
             <div className="home-page">
                 <img className="image" src={gamingConsole} alt="gamingConsole" />
                 <div className="home-btn-container">
-                    <input className="home-btn" type="button" value="LOGIN" onClick={this.handleLogin} />
-                    <input className="home-btn" type="button" value="REGISTER" onClick={this.handleRegister} />
+                    <button className="home-btn" onClick={this.handleLogin}>LOGIN</button>
+                    <button className="home-btn" onClick={this.handleRegister} >REGISTER</button>
                 </div>
             </div>
         )

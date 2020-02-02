@@ -149,23 +149,19 @@ class SelectedItem extends Component {
             {this.props.admin
             ?
             (<div className="quantity-container">
-              <input
+              <button
                 className="btn plus-minus"
-                type="button"
-                value="-"
                 onClick={this.handleDec}
                 disabled={this.state.disabled}
-              />
+              >-</button>
               <span>
                 {this.state.quantity}
               </span>
-              <input
+              <button
                 className="btn plus-minus"
-                type="button"
-                value="+"
                 onClick={this.handleInc}
                 disabled={this.state.disabled}
-              />
+              >+</button>
             </div>)
             :
             ""

@@ -92,7 +92,7 @@ export default class Register extends Component {
             required
           />
 
-          <input className='btn' type="button" value='Register' onClick={this.handleRegister} />
+          <button className='btn' onClick={this.handleRegister}>REGISTER</button>
           <p>Already have an account? <span className="log-in" onClick={()=>this.props.history.push("/signin")}>Log In</span></p>
         </div>
       </div>

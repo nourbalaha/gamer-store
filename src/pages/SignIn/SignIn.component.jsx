@@ -80,7 +80,7 @@ class SignIn extends Component {
             required
           />
 
-          <input className='btn' type='button' value='Log In' onClick={this.handleSignIn} />
+          <button className='btn' onClick={this.handleSignIn}>LOGIN</button>
           <p>Don't have an account? <span className="sign-up" onClick={()=>this.props.history.push("/register")}>Register</span></p>
         </div>
       </div>

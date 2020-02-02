@@ -43,6 +43,8 @@ $delete-color: #f44336;
       font-size: 14px;
       padding: 10px;
       color: white;
+      border: none;
+      border-radius: 3px;
       background-color: $delete-color;
       &:hover {
         color: $delete-color;
