@@ -8,6 +8,11 @@ class FlashMsg extends Component {
         this.props.deleteMsg({id: this.props.id})
     }
     render() {
+        // Remove Message after 5 sec.
+        setTimeout(()=>{
+            this.props.deleteMsg({id: this.props.id})
+        },5000)
+
         return (
             <div className={`msg-container ${this.props.type}`}>
                 <span className="msg">{this.props.msg}</span>
