@@ -8,6 +8,8 @@ const initial_state = {
     switch (action.type) {
   
       case 'ADD_MSG':
+        const id = state.messages.length>0?state.messages[state.messages.length -1].id +1 : 0
+        action.payload.id = id
         return { messages: [...state.messages, action.payload] }
 
       case 'DELETE_MSG':

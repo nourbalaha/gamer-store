@@ -33,7 +33,7 @@ class App extends React.Component {
           data.Name = user.displayName;
           data.Role = "user"
           await userRef.set(data);
-          this.props.addFlashMsg({msg:"User Registration Successful!", type: "success", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+          this.props.addFlashMsg({msg:"User Registration Successful!", type: "success"})
 
         }
         // set user

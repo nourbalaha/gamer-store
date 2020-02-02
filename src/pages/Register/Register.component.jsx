@@ -28,7 +28,7 @@ class Register extends Component {
       try {
         await signInWithGoogle()
       } catch(error) {
-        this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+        this.props.addFlashMsg({msg:error.message, type: "error"})
       };
       this.props.history.push("/inventory")
     }
@@ -42,11 +42,11 @@ class Register extends Component {
             displayName: this.state.name,
           })
         } catch(error) {
-          this.props.addFlashMsg({msg:error.message, type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+          this.props.addFlashMsg({msg:error.message, type: "error"})
         };
         this.props.history.push("/inventory")
       } else {
-        this.props.addFlashMsg({msg:"please enter required field", type: "error", id: this.props.messages.length>0?this.props.messages[this.props.messages.length -1].id +1 : 0})
+        this.props.addFlashMsg({msg:"please enter required field", type: "error"})
       }
     }
 
