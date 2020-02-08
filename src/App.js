@@ -11,6 +11,7 @@ import Home from './pages/Home/Home.component'
 import SignIn from './pages/SignIn/SignIn.component'
 import Register from './pages/Register/Register.component'
 import Cart from './pages/Cart/Cart.component'
+import Checkout from "./pages/Checkout/Checkout.component"
 // Components
 import Navbar from './components/Navbar/Navbar.component'
 import Footer from './components/Footer/Footer.component'
@@ -77,6 +78,7 @@ class App extends React.Component {
             <Route path='/additem' component={this.props.currentUser?AddItem:Home} />
             <Route path='/inventory/:id' component={this.props.currentUser?SelectedItem:Home} />
             <Route path='/cart' component={this.props.currentUser?Cart:Home} />
+            <Route path='/checkout' component={this.props.currentUser?Checkout:Home} />
           </Switch>
         </main>
 

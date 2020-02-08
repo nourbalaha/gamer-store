@@ -35,7 +35,7 @@ class Cart extends Component {
                     <h2>The cart is empty</h2>
                 }
               {total>0 && <h3>Total: {total}$</h3>}
-              {total>0 && <button className="checkout-btn">Continue to checkout</button>}
+              {total>0 && <button className="checkout-btn" onClick={()=>this.props.history.push("/checkout")}>Continue to checkout</button>}
             </div>
         )
     }
