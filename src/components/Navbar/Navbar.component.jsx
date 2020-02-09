@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-
+// Assets
 import logo from "../../assets/Logo white.png";
-
+// Styles
 import "../Navbar/Navbar.style.scss";
-
+// Components
 import Dropdown from "../../components/Dropdown/Dropdown.component";
 import CartIcon from "../../components/CartIcon/CartIcon.component";
+import SearchBar from "../../components/SearchBar/SearchBar.component";
 
 class Navbar extends Component {
   handleSignIn = () => {
@@ -24,6 +25,9 @@ class Navbar extends Component {
           alt="logo"
           onClick={() => this.props.history.push("/")}
         />
+        {
+          this.props.currentUser && <SearchBar />
+        }
         <ul>
           <li>
             {
