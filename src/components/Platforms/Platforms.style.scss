@@ -3,11 +3,11 @@ $second-color: #9C6269;
 $third-color: #FFC646;
 $forth-color: #FD9429;
 .search-section{
+    background-color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $main-color;
 
     .selected-platform{
         margin-top: 10px;
@@ -31,4 +31,26 @@ $forth-color: #FD9429;
             }
         }
     }
+
+    @media screen and (max-width: 640px){
+            .platforms{
+                padding: 10px;
+                .platform{
+                    padding: 2px;
+                    margin: 2px;
+                    font-size: 14px;
+                }
+            }
+    }
+    @media screen and (max-width: 320px){
+            .platforms{
+                padding: 10px;
+                flex-direction: column;
+                .platform{
+                    padding: 2px;
+                    margin: 2px;
+                    font-size: 14px;
+                }
+            }
+        }
 }
