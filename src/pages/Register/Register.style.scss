@@ -1,6 +1,5 @@
-$main-color: #B2D8D7;
-$second-color: #9C6269;
-$third-color: #FFC646;
+$brown: #9C6269;
+$orange: #FFC646;
 $google-color:#008DF2;
 .register-page{
     min-height: 84vh;
@@ -8,7 +7,6 @@ $google-color:#008DF2;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    // background-color: $main-color;
     background-image: linear-gradient(#070024,#000000);
 
 
@@ -62,7 +60,7 @@ $google-color:#008DF2;
             height: 40px;
             font-size: 18px;
             cursor: pointer;
-            background-color: $third-color;
+            background-color: $orange;
             background-image: linear-gradient(to right, #006A69, #004368);
             color: white;
             text-align: center;
@@ -72,8 +70,8 @@ $google-color:#008DF2;
             -webkit-transition-duration: 0.4s;
             transition-duration: 0.4s;
             &:hover {
-                background-color: $second-color;
-                color: $third-color;
+                background-color: $brown;
+                color: $orange;
               }
         }
         .input{
@@ -85,8 +83,6 @@ $google-color:#008DF2;
             padding-left: 10px;
             border: none;
             border-bottom: 1px solid black;
-
-            // border-radius: 5px;
         }
         .log-in{
             color:blue;

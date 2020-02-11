@@ -1,7 +1,3 @@
-$main-color: #B2D8D7;
-$second-color: #9C6269;
-$third-color: #FFC646;
-$forth-color: #FD9429;
 .search-section{
     background-color: #030023;
     display: flex;
@@ -27,7 +23,7 @@ $forth-color: #FD9429;
             margin: 5px;
             cursor: pointer;
             &:hover{
-                background-color: $third-color;
+                background-color: #FFC646;
             }
         }
     }
