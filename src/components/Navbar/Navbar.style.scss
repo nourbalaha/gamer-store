@@ -24,6 +24,8 @@ $orange: #FD9429;
     cursor: pointer;
     &:hover{
       color: $orange;
+      padding-bottom: 5px;
+      border-bottom: 3px solid $orange;
     }
     
   }
