@@ -62,11 +62,13 @@ class App extends React.Component {
       <div className='App'>
         <header className='App-header'>
           <Navbar />
+          <div className="flash-msg-container">
           {
           this.props.messages.length>0 && this.props.messages.map(msg=>
           <FlashMsg id={msg.id} msg={msg.msg} type={msg.type} />
           )
           }
+          </div>
         </header>
 
         <main>
