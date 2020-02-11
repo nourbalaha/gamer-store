@@ -2,7 +2,8 @@ $gray: #333;
 $white: #ccc;
 $orange: #FD9429;
 
-.dropdown {    
+.dropdown { 
+    // background-color: #030023;   
     &:hover {
         .dropdown-content {
             display: block;
@@ -13,7 +14,7 @@ $orange: #FD9429;
     }
 
     .dropbtn {
-        background-color: $gray;
+        // background-color: $gray;
         font-size: 20px;
         color: white;
         cursor: pointer;

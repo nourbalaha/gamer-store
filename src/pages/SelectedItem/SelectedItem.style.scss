@@ -6,7 +6,9 @@ $third-color: #ffc646;
   justify-content: center;
   align-items: center;
   min-height: 84vh;
-  background-color: $main-color;
+  // background-color: $main-color;
+  background-image: linear-gradient(#070024,#000000);
+
 
   .wrapper {
     display: flex;
@@ -14,9 +16,9 @@ $third-color: #ffc646;
     align-items: center;
     flex-direction: row;
     min-height: 30vh;
-    background-color: #ccc;
+    background-color: white;
     padding: 30px;
-    border-radius: 5px;
+    border-radius: 25px;
     box-shadow: rgba(0, 0, 0, .25) 0px 3px 3px 0;
   }
   .item-image {
@@ -30,14 +32,14 @@ $third-color: #ffc646;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #bbb;
+    // background-color: #bbb;
     padding-bottom: 20px;
     border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, .25) 0px 3px 3px 0;
+    box-shadow: rgba(0, 0, 0, .25) 0px 3px 8px 0;
 
     .input {
       color: black;
-      background-color: #bbb;
+      // background-color: #bbb;
       border: none;
       font-size: 16px;
       margin: 5px 0;
@@ -59,7 +61,7 @@ $third-color: #ffc646;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
-      border-radius: 5px;
+      border-radius: 25px;
     }
     .plus-minus {
       color: white;
@@ -88,6 +90,7 @@ $third-color: #ffc646;
       &:hover {
         color: gray;
         background-color: white;
+        border: 1px solid gray;
       }
     }
     .delete {

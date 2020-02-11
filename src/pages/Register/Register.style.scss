@@ -8,7 +8,9 @@ $google-color:#008DF2;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $main-color;
+    // background-color: $main-color;
+    background-image: linear-gradient(#070024,#000000);
+
 
     .register-form{
         display: flex;
@@ -16,9 +18,9 @@ $google-color:#008DF2;
         justify-content: center;
         align-items: center;
         width: 400px;
-        background-color: #ddd;
+        background-color: white;
         padding: 30px 0;
-        border-radius: 5px;
+        border-radius: 25px;
         box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
 
         .google{
@@ -27,11 +29,11 @@ $google-color:#008DF2;
             height: 40px;
             font-size: 18px;
             cursor: pointer;
-            border: none;
+            border: 1px solid $google-color;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            border-radius: 5px;
+            border-radius: 25px;
             -webkit-transition-duration: 0.4s;
             transition-duration: 0.4s;
             background-color: white;
@@ -61,12 +63,12 @@ $google-color:#008DF2;
             font-size: 18px;
             cursor: pointer;
             background-color: $third-color;
-            border: none;
-            color: $second-color;
+            background-image: linear-gradient(to right, #006A69, #004368);
+            color: white;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            border-radius: 5px;
+            border-radius: 25px;
             -webkit-transition-duration: 0.4s;
             transition-duration: 0.4s;
             &:hover {
@@ -82,7 +84,9 @@ $google-color:#008DF2;
             text-align: left;
             padding-left: 10px;
             border: none;
-            border-radius: 5px;
+            border-bottom: 1px solid black;
+
+            // border-radius: 5px;
         }
         .log-in{
             color:blue;

@@ -7,7 +7,8 @@ $third-color: #FFC646;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $main-color;
+    // background-color: $main-color;
+    background-image: linear-gradient(#070024,#000000);
 
     .add-item-form{
         display: flex;
@@ -15,10 +16,10 @@ $third-color: #FFC646;
         justify-content: center;
         align-items: center;
         width: 400px;
-        background-color: #ddd;
+        background-color: white;
         padding: 30px 0;
-        border-radius: 5px;
-        box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
+        border-radius: 25px;
+        // box-shadow: rgba(0,0,0,.25) 0px 3px 3px 0;
 
         
         .title{
@@ -33,18 +34,19 @@ $third-color: #FFC646;
             height: 40px;
             font-size: 18px;
             cursor: pointer;
-            background-color: $third-color;
+            background-color: #00ACE8;
             border: none;
-            color: $second-color;
+            color: white;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            border-radius: 5px;
+            border-radius: 25px;
             -webkit-transition-duration: 0.4s;
             transition-duration: 0.4s;
             &:hover {
-                background-color: $second-color;
-                color: $third-color;
+                background-color: white;
+                color: #00ACE8;
+                border: 1px solid #00ACE8;
               }
         }
         .input{
@@ -55,7 +57,8 @@ $third-color: #FFC646;
             text-align: left;
             padding-left: 10px;
             border: none;
-            border-radius: 5px;
+            border-bottom: 1px solid black;
+            // border-radius: 5px;
         }
         .list{
             margin-top: 20px;
@@ -63,7 +66,10 @@ $third-color: #FFC646;
             height: 30px;
             font-size: 18px;
             border: none;
-            border-radius: 5px;
+            border-bottom: 1px solid black;
+            // color: #919191;
+            background-color: white;
+            border-radius: 0;
         }
     }
     @media screen and (max-width: 640px){

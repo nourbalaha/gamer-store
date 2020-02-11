@@ -105,7 +105,7 @@ class AddItem extends Component {
             onChange={this.handleChange}
           />
 
-          <input className="btn" type="submit" value="Submit" />
+          <input className="btn" type="submit" value="Add" />
         </form>
       </div>
     );

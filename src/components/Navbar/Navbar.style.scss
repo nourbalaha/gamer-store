@@ -6,11 +6,11 @@ $orange: #FD9429;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $gray;
+  background-color: #030023;
   color: $white;
   height: 6vh;
   padding: 10px 100px;
-  border-bottom: $orange solid 3px;
+  // border-bottom: $orange solid 3px;
   .logo {
     height: 4vh;
     cursor: pointer;
