@@ -1,102 +1,108 @@
-import React, { Component } from 'react'
-import { connect } from "react-redux"
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
 import './SignIn.style.scss'
 
-import google from "../../assets/google-icon.png"
+import google from '../../assets/google-icon.png'
 
-import {auth, signInWithGoogle} from "../../firebase/firebase.config"
+import { auth, signInWithGoogle } from '../../firebase/firebase.config'
 
-class SignIn extends Component {
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-             email:"",
-             password: ""
-        }
+const SignIn = ({ addFlashMsg, history }) => {
+  const [user, setUser] = useState({
+    email: '',
+    password: ''
+  })
+
+  const handleChange = event => {
+    const { name, value } = event.target
+
+    setUser({
+      ...user,
+      [name]: value
+    })
+  }
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      await signInWithGoogle()
+      addFlashMsg({
+        msg: 'You Have Been Logged In Successfully!',
+        type: 'success'
+      })
+    } catch (error) {
+      addFlashMsg({ msg: error.message, type: 'error' })
     }
-    
-    handleChange=e=>{
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
 
-    handleSignInWithGoogle = async ()=>{
+    history.push('/inventory')
+  }
+
+  const handleSignIn = async () => {
+    if (user.email.length > 0 && user.password.length > 0) {
       try {
-        await signInWithGoogle()
-        this.props.addFlashMsg({msg:"You Have Been Logged In Successfully!", type: "success"})
-      } catch(error) {
-        this.props.addFlashMsg({msg:error.message, type: "error"})
-      };
-      
-      this.props.history.push("/inventory")
-    }
-    
-    handleSignIn = async ()=>{
-      if( this.state.email.length>0  && this.state.password.length>0 ){
-        try {
-          await auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-          this.props.addFlashMsg({msg:"You Have Been Logged In Successfully!", type: "success"})
-        } catch(error) {
-          this.props.addFlashMsg({msg:error.message, type: "error"})
-        };
-        this.props.history.push("/inventory")
-      } else {
-        this.props.addFlashMsg({msg:"please enter required field", type: "error"})
+        await auth.signInWithEmailAndPassword(user.email, user.password)
+        addFlashMsg({
+          msg: 'You Have Been Logged In Successfully!',
+          type: 'success'
+        })
+      } catch (error) {
+        addFlashMsg({ msg: error.message, type: 'error' })
       }
-
+      history.push('/inventory')
+    } else {
+      addFlashMsg({ msg: 'please enter required field', type: 'error' })
     }
+  }
 
-  render () {
-    return (
-      <div className='sign-in-page'>
-        <div className="sign-in-form">
-        <span className="title">Log In</span>
-        <button className='google' onClick={this.handleSignInWithGoogle}><img className="google_logo" src={google} alt="google logo" />Use Google Account</button>
+  return (
+    <div className='sign-in-page'>
+      <div className='sign-in-form'>
+        <span className='title'>Log In</span>
+        <button className='google' onClick={handleSignInWithGoogle}>
+          <img className='google_logo' src={google} alt='google logo' />Use
+          Google Account
+        </button>
         <br />
         <p>or</p>
 
-          <input
-            className='input'
-            name='email'
-            type='email'
-            placeholder='Email Address'
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
-          <input
-            className='input'
-            name='password'
-            type='password'
-            placeholder='Password'
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
+        <input
+          className='input'
+          name='email'
+          type='email'
+          placeholder='Email Address'
+          value={user.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          className='input'
+          name='password'
+          type='password'
+          placeholder='Password'
+          value={user.password}
+          onChange={handleChange}
+          required
+        />
 
-          <button className='btn' onClick={this.handleSignIn}>LOGIN</button>
-          <p>Don't have an account? <span className="sign-up" onClick={()=>this.props.history.push("/register")}>Register</span></p>
-        </div>
+        <button className='btn' onClick={handleSignIn}>
+          LOGIN
+        </button>
+        <p>
+          Don't have an account?{' '}
+          <span className='sign-up' onClick={() => history.push('/register')}>
+            Register
+          </span>
+        </p>
       </div>
-    )
-  }
-}
-
-const mapState = state => {
-  return {
-    messages: state.flash.messages
-  }
+    </div>
+  )
 }
 
 const mapDispatch = dispatch => {
   return {
-    addFlashMsg(payload){
-      dispatch({type:"ADD_MSG", payload})
+    addFlashMsg (payload) {
+      dispatch({ type: 'ADD_MSG', payload })
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(SignIn);
+export default connect(null, mapDispatch)(SignIn)
