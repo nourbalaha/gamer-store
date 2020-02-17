@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { addItem } from "../../redux/inventory/inventory.actions"
@@ -6,51 +6,51 @@ import "./AddItem.style.scss";
 
 import GameCover from "../../assets/Game Cover Placeholder.jpg"
 
-class AddItem extends Component {
-  constructor(props) {
-    super(props);
+const AddItem = ({ admin, history, addFlashMsg, addItem }) => {
 
-    this.state = {
-      id: "",
-      name: "",
-      platform: "",
-      price: "",
-      image: "",
-      quantity: ""
-    };
-  }
+  const [item, setItem] = useState({
+    id: "",
+    name: "",
+    platform: "",
+    price: "",
+    image: "",
+    quantity: ""
+  })
 
-  componentDidMount(){
-    if(!this.props.admin){
-      this.props.history.push("/inventory")
+  useEffect(()=>{
+    if(!admin){
+      history.push("/inventory")
     }
-  }
+  },[admin, history])
 
-  handleSubmit = async e => {
-    e.preventDefault();
+  const handleSubmit = async event => {
+    event.preventDefault();
     
-    const newItem = this.state;
+    const newItem = item;
     newItem.name = newItem.name.toLowerCase();
-    if(!this.state.image) newItem.image=GameCover;
+    if(!item.image) newItem.image=GameCover;
     newItem.price=Number(newItem.price)
     newItem.quantity=Number(newItem.quantity)
 
-    await this.props.addItem(newItem)
+    await addItem(newItem)
 
-    this.props.addFlashMsg({msg:"Item Added Successfully!", type:"success"})
+    addFlashMsg({msg:"Item Added Successfully!", type:"success"})
 
-    
-    this.props.history.push("/inventory")
+    history.push("/inventory")
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleChange = event => {
+    const { name, value } = event.target;
+
+    setItem({ 
+      ...item,
+      [name]: value 
+    });
   };
 
-  render() {
     return (
       <div className="add-item">
-        <form className="add-item-form" onSubmit={this.handleSubmit}>
+        <form className="add-item-form" onSubmit={handleSubmit}>
           <span className="title">Add Item</span>
 
           <input
@@ -58,17 +58,17 @@ class AddItem extends Component {
             name="name"
             type="text"
             placeholder="Name"
-            value={this.state.name}
-            onChange={this.handleChange}
+            value={item.name}
+            onChange={handleChange}
             required
             />
 
           <select
               className="list"
               name="platform"
-              value={this.state.platform}
+              value={item.platform}
               placeholder="Platform"
-              onChange={this.handleChange}
+              onChange={handleChange}
               required
             >
               <option value="">--Please choose a platform--</option>
@@ -82,8 +82,8 @@ class AddItem extends Component {
             name="price"
             type="text"
             placeholder="Price"
-            value={this.state.price}
-            onChange={this.handleChange}
+            value={item.price}
+            onChange={handleChange}
             required
           />
 
@@ -92,8 +92,8 @@ class AddItem extends Component {
             name="image"
             type="text"
             placeholder="Image Url"
-            value={this.state.image}
-            onChange={this.handleChange}
+            value={item.image}
+            onChange={handleChange}
             />
 
           <input
@@ -101,8 +101,8 @@ class AddItem extends Component {
             name="quantity"
             type="text"
             placeholder="Quantity"
-            value={this.state.quantity}
-            onChange={this.handleChange}
+            value={item.quantity}
+            onChange={handleChange}
           />
 
           <input className="btn" type="submit" value="Add" />
@@ -110,11 +110,9 @@ class AddItem extends Component {
       </div>
     );
   }
-}
 
 function mapState(state) {
   return { 
-    inventory: state.inventory.inventory,
     admin: state.admin.admin,
   };
 }
