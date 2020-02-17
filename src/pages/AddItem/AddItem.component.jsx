@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 
 import { addItem } from "../../redux/inventory/inventory.actions"
 import "./AddItem.style.scss";
@@ -109,6 +110,13 @@ const AddItem = ({ admin, history, addFlashMsg, addItem }) => {
         </form>
       </div>
     );
+  }
+
+  AddItem.propTypes = {
+    admin: PropTypes.bool,
+    addItem: PropTypes.func,
+    addFlashMsg: PropTypes.func,
+    history: PropTypes.object,
   }
 
 function mapState(state) {

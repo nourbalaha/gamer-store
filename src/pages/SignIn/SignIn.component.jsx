@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from "prop-types"
 
 import './SignIn.style.scss'
 
@@ -87,7 +88,7 @@ const SignIn = ({ addFlashMsg, history }) => {
           LOGIN
         </button>
         <p>
-          Don't have an account?{' '}
+          Don`&apos;`t have an account?
           <span className='sign-up' onClick={() => history.push('/register')}>
             Register
           </span>
@@ -95,6 +96,11 @@ const SignIn = ({ addFlashMsg, history }) => {
       </div>
     </div>
   )
+}
+
+SignIn.propTypes = {
+  addFlashMsg: PropTypes.func,
+  history: PropTypes.object,
 }
 
 const mapDispatch = dispatch => {

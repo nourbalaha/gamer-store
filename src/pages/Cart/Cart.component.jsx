@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from "prop-types"
 
 import CartItem from '../../components/CartItem/CartItem.component'
 
@@ -54,6 +55,12 @@ const Cart = ({ updateCart, cart, history }) => {
         </button>}
     </div>
   )
+}
+
+Cart.propTypes = {
+  cart: PropTypes.object,
+  updateCart: PropTypes.func,
+  history: PropTypes.object,
 }
 
 const mapState = state => {
