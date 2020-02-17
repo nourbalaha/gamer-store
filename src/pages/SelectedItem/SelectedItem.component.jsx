@@ -92,16 +92,20 @@ class SelectedItem extends Component {
   };
 
   handleAddToCart = () => {
-    const newItem = {};
-    newItem.id = this.state.id;
-    newItem.name = this.state.name;
-    newItem.price = this.state.price;
-    newItem.platform = this.state.platform;
-    newItem.image = this.state.image;
-
-    this.props.addToCart(newItem)
-
-    this.props.addFlashMsg({msg:"Item Added To Cart Successfully!", type:"success"})
+    if(this.state.quantity > 0){
+      const newItem = {};
+      newItem.id = this.state.id;
+      newItem.name = this.state.name;
+      newItem.price = this.state.price;
+      newItem.platform = this.state.platform;
+      newItem.image = this.state.image;
+  
+      this.props.addToCart(newItem)
+  
+      this.props.addFlashMsg({msg:"Item Added To Cart Successfully!", type:"success"})
+    } else {
+      this.props.addFlashMsg({msg:"Item not available in the inventory", type:"error"})
+    }
 
   };
 
