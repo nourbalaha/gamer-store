@@ -22,8 +22,13 @@ import { auth, firestore } from './firebase/firebase.config'
 import { setCart } from "./redux/cart/cart.actions.js"
 
 class App extends React.Component {
+
+  unsubscribeFromAuth = null;
+
   componentDidMount () {
-    auth.onAuthStateChanged(async user => {
+    const { onAddUser, updateCart, addFlashMsg, setAdmin, setUser, setCart } = this.props;
+
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
         const userRef = firestore.collection("users").doc(user.uid)
         const userSnap = await userRef.get()
@@ -34,37 +39,42 @@ class App extends React.Component {
           data.Name = user.displayName;
           data.Role = "user"
           await userRef.set(data);
-          this.props.addFlashMsg({msg:"User Registration Successful!", type: "success"})
+          addFlashMsg({msg:"User Registration Successful!", type: "success"})
 
         }
         // set user
-        this.props.onAddUser(user)
+        onAddUser(user)
         //sync with firebase's cart
-        this.props.updateCart()
+        updateCart()
         
         const adminRef = firestore.collection("users").doc(user.uid)
         const adminSnap = await adminRef.get()
         if(adminSnap.data().Role==="admin"){
-          this.props.setAdmin()
+          setAdmin()
         } else {
-          this.props.setUser()
+          setUser()
         }
 
       } else {
-        this.props.setCart({})
-        this.props.onAddUser(null)
+        setCart({})
+        onAddUser(null)
       }
     })
   }
 
+  componentWillUnmount(){
+    this.unsubscribeFromAuth();
+  }
+
   render () {
+    const { currentUser, messages } = this.props;
     return (
       <div className='App'>
         <header className='App-header'>
           <Navbar />
           <div className="flash-msg-container">
           {
-          this.props.messages.length>0 && this.props.messages.map(msg=>
+          messages.length>0 && messages.map(msg=>
           <FlashMsg id={msg.id} msg={msg.msg} type={msg.type} />
           )
           }
@@ -73,14 +83,14 @@ class App extends React.Component {
 
         <main>
           <Switch>
-            <Route exact path='/' component={this.props.currentUser?Inventory:Home} />
-            <Route path='/signin' component={this.props.currentUser?Inventory:SignIn} />
-            <Route path='/register' component={this.props.currentUser?Inventory:Register} />
-            <Route exact path='/inventory' component={this.props.currentUser?Inventory:Home} />
-            <Route path='/additem' component={this.props.currentUser?AddItem:Home} />
-            <Route path='/inventory/:id' component={this.props.currentUser?SelectedItem:Home} />
-            <Route path='/cart' component={this.props.currentUser?Cart:Home} />
-            <Route path='/checkout' component={this.props.currentUser?Checkout:Home} />
+            <Route exact path='/' component={currentUser?Inventory:Home} />
+            <Route path='/signin' component={currentUser?Inventory:SignIn} />
+            <Route path='/register' component={currentUser?Inventory:Register} />
+            <Route exact path='/inventory' component={currentUser?Inventory:Home} />
+            <Route path='/additem' component={currentUser?AddItem:Home} />
+            <Route path='/inventory/:id' component={currentUser?SelectedItem:Home} />
+            <Route path='/cart' component={currentUser?Cart:Home} />
+            <Route path='/checkout' component={currentUser?Checkout:Home} />
           </Switch>
         </main>
 
