@@ -49,6 +49,7 @@ $delete-color: #f44336;
       &:hover {
         color: $delete-color;
         background-color: white;
+        border: 1px solid $delete-color;
       }
     }
   }
