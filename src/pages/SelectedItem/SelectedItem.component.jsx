@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { addItem } from "../../redux/cart/cart.actions"
@@ -6,200 +6,199 @@ import { updateItem, deleteItem } from "../../redux/inventory/inventory.actions"
 
 import "./SelectedItem.style.scss";
 
-class SelectedItem extends Component {
-  constructor(props) {
-    super(props);
+const SelectedItem = ({ inventory, match, history, updateItem, deleteItem, addFlashMsg, addToCart, admin }) => {
 
-    this.state = {
-      disabled: true,
-      id: "",
-      name: "",
-      price: "",
-      platform: "",
-      quantity: "",
-      image: ""
-    };
-  }
+  const [item, setItem] = useState({
+    disabled: true,
+    id: "",
+    name: "",
+    price: "",
+    platform: "",
+    quantity: "",
+    image: ""
+  })
 
-  componentDidMount() {
-    const id = this.props.match.params.id;
-    const currentItem = this.props.inventory.filter(
-      item => item.id === id
-    )[0];
-    this.setState({
-      id,
-      name: currentItem.name,
-      price: currentItem.price,
-      platform: currentItem.platform,
-      quantity: currentItem.quantity,
-      image: currentItem.image
-    });
-  }
+  useEffect(()=>{
+    const id = match.params.id;
+    const currentItem = inventory.filter(
+      arrItem => arrItem.id === id
+      )[0];
+      setItem({
+        ...item,
+        id,
+        name: currentItem.name,
+        price: currentItem.price,
+        platform: currentItem.platform,
+        quantity: currentItem.quantity,
+        image: currentItem.image
+      });
+      // eslint-disable-next-line
+  },[inventory])
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setItem({
+      ...item,
+      [name]: value
     });
   };
 
-  handleUpdate = () => {
-    this.setState((prevState, prevProps) => {
-      return { disabled: !prevState.disabled };
+  const handleUpdate = () => {
+    setItem({
+      ...item,
+      disabled: !item.disabled,
     });
 
-    if (!this.state.disabled) {
+    if (!item.disabled) {
       const updatedItem = {
-        id: this.state.id,
-        name: this.state.name.toLocaleLowerCase(),
-        price: this.state.price,
-        platform: this.state.platform,
-        quantity: this.state.quantity,
-        image: this.state.image
+        id: item.id,
+        name: item.name.toLocaleLowerCase(),
+        price: item.price,
+        platform: item.platform,
+        quantity: item.quantity,
+        image: item.image
       }
 
-      this.props.updateItem(updatedItem)
+      updateItem(updatedItem)
 
-      this.props.addFlashMsg({msg:"Item Updated Successfully!", type:"success"})
+      addFlashMsg({msg:"Item Updated Successfully!", type:"success"})
       
-      this.props.history.push("/inventory");
+      history.push("/inventory");
     }
   };
   
-  handleDelete = () => {
-    this.props.deleteItem(this.props.match.params.id)
+  const handleDelete = () => {
+    deleteItem(match.params.id)
 
-    this.props.addFlashMsg({msg:"Item Deleted Successfully!", type:"success"})
+    addFlashMsg({msg:"Item Deleted Successfully!", type:"success"})
 
-    this.props.history.push("/inventory");
+    history.push("/inventory");
   };
 
-  handleInc = () => {
-    this.setState((prevState, prevProps) => {
-      return {
-        quantity: prevState.quantity + 1
-      };
-    });
-  };
-
-  handleDec = () => {
-    if (this.state.quantity > 0) {
-      this.setState((prevState, prevProps) => {
-        return {
-          quantity: prevState.quantity - 1
-        };
+  const handleInc = () => {
+    setItem({
+        ...item,
+        quantity: item.quantity + 1
       });
+  };
+
+  const handleDec = () => {
+    if (item.quantity > 0) {
+      setItem({
+        ...item,
+          quantity: item.quantity - 1
+        })
     }
   };
 
-  handleAddToCart = () => {
-    if(this.state.quantity > 0){
+  const handleAddToCart = () => {
+    if(item.quantity > 0){
       const newItem = {};
-      newItem.id = this.state.id;
-      newItem.name = this.state.name;
-      newItem.price = this.state.price;
-      newItem.platform = this.state.platform;
-      newItem.image = this.state.image;
+      newItem.id = item.id;
+      newItem.name = item.name;
+      newItem.price = item.price;
+      newItem.platform = item.platform;
+      newItem.image = item.image;
   
-      this.props.addToCart(newItem)
+      addToCart(newItem)
   
-      this.props.addFlashMsg({msg:"Item Added To Cart Successfully!", type:"success"})
+      addFlashMsg({msg:"Item Added To Cart Successfully!", type:"success"})
     } else {
-      this.props.addFlashMsg({msg:"Item not available in the inventory", type:"error"})
+      addFlashMsg({msg:"Item not available in the inventory", type:"error"})
     }
 
   };
 
-  render() {
     return (
       <div className="selected-item">
         <div className="wrapper">
           <img
             className="item-image"
-            src={this.state.image}
-            alt={this.state.name}
+            src={item.image}
+            alt={item.name}
           />
           <div className="details">
             <input
               name="name"
               type="text"
               className="item-name input"
-              value={this.state.name.length>25?this.state.name.slice(0,25)+"...":this.state.name}
-              onChange={this.handleChange}
-              disabled={this.state.disabled}
+              value={item.name.length>25?item.name.slice(0,25)+"...":item.name}
+              onChange={handleChange}
+              disabled={item.disabled}
             />
             <input
               name="price"
               type="text"
               className="item-price input"
               value={
-                this.state.disabled
-                  ? `${this.state.price}$`
-                  : `${this.state.price}`
+                item.disabled
+                  ? `${item.price}$`
+                  : `${item.price}`
               }
-              onChange={this.handleChange}
-              disabled={this.state.disabled}
+              onChange={handleChange}
+              disabled={item.disabled}
             />
 
-            {this.props.admin
+            {admin
             ?
             (<select
               className="input"
               name="platform"
-              value={this.state.platform}
-              onChange={this.handleChange}
-              disabled={this.state.disabled}
+              value={item.platform}
+              onChange={handleChange}
+              disabled={item.disabled}
             >
               <option value="Playstation 4">Playstation 4</option>
               <option value="Xbox One">Xbox One</option>
               <option value="Nintendo Switch">Nintendo Switch</option>
             </select>)
             :
-            <p className="input">{this.state.platform}</p>
+            <p className="input">{item.platform}</p>
             }
 
-            {this.props.admin
+            {admin
             ?
             (<div className="quantity-container">
               <button
                 className="btn plus-minus"
-                onClick={this.handleDec}
-                disabled={this.state.disabled}
+                onClick={handleDec}
+                disabled={item.disabled}
               >-</button>
               <span>
-                {this.state.quantity}
+                {item.quantity}
               </span>
               <button
                 className="btn plus-minus"
-                onClick={this.handleInc}
-                disabled={this.state.disabled}
+                onClick={handleInc}
+                disabled={item.disabled}
               >+</button>
             </div>)
             :
             ""
             }
-            {this.props.admin
+            {admin
             ?
             (<button
               className="btn update"
-              onClick={this.handleUpdate}
+              onClick={handleUpdate}
             ><i className="fa fa-pencil" /> Update item</button>)
           :
           ""
           }
-            {this.props.admin?
+            {admin?
             (<button
               className="btn delete"
-              onClick={this.handleDelete}
+              onClick={handleDelete}
             ><i className="fa fa-trash" /> Delete item</button>)
           :
           ""
           }
 
-            {!this.props.admin
+            {!admin
             ?
             (<button
               className="btn add-to-cart"
-              onClick={this.handleAddToCart}
+              onClick={handleAddToCart}
             ><i className="fa fa-shopping-bag" /> Add to cart</button>)
           :
           ""}
@@ -208,13 +207,10 @@ class SelectedItem extends Component {
       </div>
     );
   }
-}
 
 function mapState(state) {
   return {
     inventory: state.inventory.inventory,
-    cart: state.cart.cart,
-    user: state.auth.currentUser,
     admin: state.admin.admin,
   };
 }
