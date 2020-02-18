@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 // CSS
@@ -21,14 +21,12 @@ import { auth, firestore } from './firebase/firebase.config'
 // Redux
 import { setCart } from "./redux/cart/cart.actions.js"
 
-class App extends React.Component {
+const App = ({ onAddUser, updateCart, addFlashMsg, setAdmin, setUser, setCart, currentUser, messages }) => {
 
-  unsubscribeFromAuth = null;
-
-  componentDidMount () {
-    const { onAddUser, updateCart, addFlashMsg, setAdmin, setUser, setCart } = this.props;
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
+  useEffect(() => {
+    let unsubscribeFromAuth = null;
+    
+    unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
         const userRef = firestore.collection("users").doc(user.uid)
         const userSnap = await userRef.get()
@@ -40,7 +38,7 @@ class App extends React.Component {
           data.Role = "user"
           await userRef.set(data);
           addFlashMsg({msg:"User Registration Successful!", type: "success"})
-
+  
         }
         // set user
         onAddUser(user)
@@ -54,52 +52,50 @@ class App extends React.Component {
         } else {
           setUser()
         }
-
+  
       } else {
         setCart({})
         onAddUser(null)
       }
     })
-  }
 
-  componentWillUnmount(){
-    this.unsubscribeFromAuth();
-  }
+    return (() => {
+      unsubscribeFromAuth();
+    })
 
-  render () {
-    const { currentUser, messages } = this.props;
-    return (
-      <div className='App'>
-        <header className='App-header'>
-          <Navbar />
-          <div className="flash-msg-container">
-          {
-          messages.length>0 && messages.map(msg=>
-          <FlashMsg id={msg.id} msg={msg.msg} type={msg.type} />
-          )
-          }
-          </div>
-        </header>
+  },[addFlashMsg, onAddUser, setAdmin, setCart, setUser, updateCart])
 
-        <main>
-          <Switch>
-            <Route exact path='/' component={currentUser?Inventory:Home} />
-            <Route path='/signin' component={currentUser?Inventory:SignIn} />
-            <Route path='/register' component={currentUser?Inventory:Register} />
-            <Route exact path='/inventory' component={currentUser?Inventory:Home} />
-            <Route path='/additem' component={currentUser?AddItem:Home} />
-            <Route path='/inventory/:id' component={currentUser?SelectedItem:Home} />
-            <Route path='/cart' component={currentUser?Cart:Home} />
-            <Route path='/checkout' component={currentUser?Checkout:Home} />
-          </Switch>
-        </main>
+  return (
+    <div className='App'>
+      <header className='App-header'>
+        <Navbar />
+        <div className="flash-msg-container">
+        {
+        messages.length>0 && messages.map(msg=>
+        <FlashMsg key={msg.id} id={msg.id} msg={msg.msg} type={msg.type} />
+        )
+        }
+        </div>
+      </header>
 
-        <footer>
-          <Footer />
-        </footer>
-      </div>
-    )
-  }
+      <main>
+        <Switch>
+          <Route exact path='/' component={currentUser?Inventory:Home} />
+          <Route path='/signin' component={currentUser?Inventory:SignIn} />
+          <Route path='/register' component={currentUser?Inventory:Register} />
+          <Route exact path='/inventory' component={currentUser?Inventory:Home} />
+          <Route path='/additem' component={currentUser?AddItem:Home} />
+          <Route path='/inventory/:id' component={currentUser?SelectedItem:Home} />
+          <Route path='/cart' component={currentUser?Cart:Home} />
+          <Route path='/checkout' component={currentUser?Checkout:Home} />
+        </Switch>
+      </main>
+
+      <footer>
+        <Footer />
+      </footer>
+    </div>
+  )
 }
 
 function mapState(state) {
