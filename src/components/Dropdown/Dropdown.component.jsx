@@ -7,54 +7,51 @@ import profile from "../../assets/Profile-Placeholder.png"
 
 import { auth } from "../../firebase/firebase.config";
 
-class Dropdown extends React.Component {
-  handleSignout = async () => {
+const Dropdown = ({ addFlashMsg, currentUser, admin }) => {
+  const handleSignout = async () => {
     try {
       await auth.signOut();
-      this.props.addFlashMsg({msg:"You Have Been Logged Out Succefully!", type: "success"})
+      addFlashMsg({ msg:"You Have Been Logged Out Succefully!", type: "success" })
     } catch(error) {
-      this.props.addFlashMsg({msg:error.message, type: "error"})
+      addFlashMsg({ msg:error.message, type: "error" })
     };
   };
 
-  render() {
-    return (
-      <div className="dropdown">
-        <span className="dropbtn">
-          PROFILE <i className="fa fa-caret-down" />
+  return (
+    <div className="dropdown">
+      <span className="dropbtn">
+        PROFILE <i className="fa fa-caret-down" />
+      </span>
+      <div className="dropdown-content">
+          <div className="profile">
+        <img
+          src={currentUser.photoURL?currentUser.photoURL:profile}
+          alt="profile"
+          className="profile-img"
+        />
+        <span className="profile-name">
+          {currentUser.displayName}
         </span>
-        <div className="dropdown-content">
-            <div className="profile">
-          <img
-            src={this.props.currentUser.photoURL?this.props.currentUser.photoURL:profile}
-            alt="profile"
-            className="profile-img"
-          />
-          <span className="profile-name">
-            {this.props.currentUser.displayName}
-          </span>
-          <span className="profile-email">
-            {this.props.currentUser.email}
-          </span>
-          <span className="profile-email">
-            {this.props.admin?"admin":""}
-          </span>
-            </div>
-          <hr />
-          <span className="link" onClick={this.handleSignout}>
-            LOGOUT
-          </span>
-        </div>
+        <span className="profile-email">
+          {currentUser.email}
+        </span>
+        <span className="profile-email">
+          {admin?"admin":""}
+        </span>
+          </div>
+        <hr />
+        <span className="link" onClick={handleSignout}>
+          LOGOUT
+        </span>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 function mapState(state) {
   return { 
     currentUser: state.auth.currentUser, 
     admin: state.admin.admin,
-    messages: state.flash.messages,
   }
 }
 
