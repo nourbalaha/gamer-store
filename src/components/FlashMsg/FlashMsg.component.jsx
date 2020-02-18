@@ -1,31 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from "react-redux" 
 
 import "./FlashMsg.style.scss"
 
-class FlashMsg extends Component {
-    handleClose=()=>{
-        this.props.deleteMsg({id: this.props.id})
+const FlashMsg = ({ id, type, msg, deleteMsg }) => {
+    const handleClose = () => {
+        deleteMsg({ id })
     }
-    render() {
-        // Remove Message after 3 sec.
-        setTimeout(()=>{
-            this.props.deleteMsg({id: this.props.id})
-        },3000)
 
-        return (
-            <div className={`msg-container ${this.props.type}`}>
-                <span className="msg">{this.props.msg}</span>
-                <span className="msg-close" onClick={this.handleClose}>&times;</span>
-            </div>
-        )
-    }
+    // Remove Message after 3 sec.
+    setTimeout(()=>{
+        deleteMsg({ id })
+    },3000)
+
+    return (
+        <div className={`msg-container ${type}`}>
+            <span className="msg">{msg}</span>
+            <span className="msg-close" onClick={handleClose}>&times;</span>
+        </div>
+    )
 }
 
 const mapDispatch = dispatch => {
     return {
         deleteMsg(payload){
-            dispatch({type: "DELETE_MSG", payload })
+            dispatch({ type: "DELETE_MSG", payload })
         }
     }
 }
