@@ -1,26 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from 'react-redux'
 
 import "./SearchBar.style.scss";
 
-class SearchBar extends Component {
+const SearchBar = ({ setSearch, search }) => {
 
-  handleChange = event => {
-    this.props.setSearch(event.target.value.toLowerCase());
+  const handleChange = event => {
+    setSearch(event.target.value.toLowerCase());
   };
 
-  render() {
-    return (
-      <input
-        id="search"
-        name="search"
-        type="text"
-        placeholder="search"
-        value={this.props.search}
-        onChange={this.handleChange}
-      />
-    );
-  }
+  return (
+    <input
+      id="search"
+      name="search"
+      type="text"
+      placeholder="search"
+      value={search}
+      onChange={handleChange}
+    />
+  );
 }
 
 const mapState = state => {
