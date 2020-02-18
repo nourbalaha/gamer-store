@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import StripeCheckout from 'react-stripe-checkout'
+import React from 'react';
+import StripeCheckout from 'react-stripe-checkout';
+import PropTypes from "prop-types";
 
-export default class StripeButton extends Component {
-    onToken = token => {
+const StripeButton = ({price}) => {
+    const onToken = token => {
         console.log(token);
         alert('Payment Successful');
     }
-    render() {
-        const price = this.props.price * 100;
+        const newPrice = price * 100;
         const key = 'pk_test_1bIXOFhsOyxsGjAf7XD46O1t00Q1fYdPHh'
         return (
             <StripeCheckout 
@@ -15,12 +15,17 @@ export default class StripeButton extends Component {
                 name='Gamer Store'
                 billingAddress
                 shippingAddress
-                description={`Your total is $${this.props.price}`}
-                amount={price}
+                description={`Your total is $${price}`}
+                amount={newPrice}
                 panelLabel='Pay Now'
-                token={this.onToken}
+                token={onToken}
                 stripeKey={key}
             />
         )
-    }
 }
+
+StripeButton.propTypes = {
+    price: PropTypes.number,
+}
+
+export default StripeButton;
