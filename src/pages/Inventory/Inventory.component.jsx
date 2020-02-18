@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 // Components
 import Item from "../../components/Item/Item.component";
 import Platforms from "../../components/Platforms/Platforms.component";
@@ -7,36 +8,35 @@ import Platforms from "../../components/Platforms/Platforms.component";
 import { setCart } from "../../redux/cart/cart.actions";
 import { updateInventory } from "../../redux/inventory/inventory.actions";
 
-
 import "./Inventory.style.scss";
 
-class Inventory extends Component {
+const Inventory = ({updateInventory, updateCart, inventory, search, platform}) => {
 
-  componentDidMount() {
-    this.props.updateInventory()
-    this.props.updateCart()
-  }
+  useEffect(() => {
+    updateInventory()
+    updateCart()
+  },[updateInventory, updateCart])
 
-  render() {
-    const docs = this.props.inventory
+    const docs = inventory
     const items = docs.filter(item => {
-      if (this.props.search === "") {
-        if (this.props.platform === "All Platforms") {
+      if (search === "") {
+        if (platform === "All Platforms") {
           return item;
         } else {
-          return item.platform === this.props.platform;
+          return item.platform === platform;
         }
       } else {
-        if (this.props.platform === "All Platforms") {
-          return item.name.includes(this.props.search);
+        if (platform === "All Platforms") {
+          return item.name.includes(search);
         } else {
           return (
-            item.name.includes(this.props.search) &&
-            item.platform === this.props.platform
+            item.name.includes(search) &&
+            item.platform === platform
           );
         }
       }
     });
+    
     return (
       <div className="wrapper">
         <Platforms />
@@ -55,7 +55,15 @@ class Inventory extends Component {
         </div>
       </div>
     );
-  }
+
+}
+
+Inventory.propTypes = {
+  inventory: PropTypes.array,
+  search: PropTypes.string,
+  platform: PropTypes.string,
+  updateCart: PropTypes.func,
+  updateInventory: PropTypes.func,
 }
 
 function mapState(state) {
@@ -63,7 +71,6 @@ function mapState(state) {
     inventory: state.inventory.inventory,
     search: state.inventory.search,
     platform: state.inventory.platform,
-    user: state.auth.currentUser
   };
 }
 
