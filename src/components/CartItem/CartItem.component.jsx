@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
@@ -7,52 +7,44 @@ import { removeItem } from "../../redux/cart/cart.actions"
 
 import "./CartItem.style.scss";
 
-export class CartItem extends Component {
-  removeFromCart = async () => {
-    this.props.removeItemFromCart({id: this.props.id})
-    this.props.addFlashMsg({msg:"Item Removed From Cart!", type: "success"})
+const CartItem = ({ removeItemFromCart, addFlashMsg, image, name, id, price, platform, quantity, history }) => {
+
+  const removeFromCart = async () => {
+    removeItemFromCart({ id })
+    addFlashMsg({ msg:"Item Removed From Cart!", type: "success" })
   };
-  render() {
-    return (
-      <div className="cart-item">
-        <img
-          className="cart-item-image"
-          src={this.props.image}
-          alt={this.props.name}
-        />
-        <div className="cart-item-details">
-          <span className="cart-item-name" onClick={()=>this.props.history.push(`/inventory/${this.props.id}`)}>
-            {this.props.name.length>20?this.props.name.slice(0,20)+"...":this.props.name}
-          </span>
-          <span className="cart-item-price">
-            Price: {this.props.price} $
-          </span>
-          <span className="cart-item-platform">
-            Platform: {this.props.platform}
-          </span>
-          <span className="cart-item-quantity">
-            Quantity: {this.props.quantity}
-          </span>
-        </div>
-        <div className="cart-item-buttons">
-          <button className="cart-item-remove-button" onClick={this.removeFromCart}>
-            <i className="fa fa-trash" />
-          </button>
-        </div>
+
+  return (
+    <div className="cart-item">
+      <img
+        className="cart-item-image"
+        src={image}
+        alt={name}
+      />
+      <div className="cart-item-details">
+        <span className="cart-item-name" onClick={()=>history.push(`/inventory/${id}`)}>
+          {name.length>20?name.slice(0,20)+"...":name}
+        </span>
+        <span className="cart-item-price">
+          Price: {price} $
+        </span>
+        <span className="cart-item-platform">
+          Platform: {platform}
+        </span>
+        <span className="cart-item-quantity">
+          Quantity: {quantity}
+        </span>
       </div>
-    );
-  }
+      <div className="cart-item-buttons">
+        <button className="cart-item-remove-button" onClick={removeFromCart}>
+          <i className="fa fa-trash" />
+        </button>
+      </div>
+    </div>
+  );
 }
 
-
-const mapState=state=>{
-    return {
-        cart: state.cart.cart,
-        user: state.auth.currentUser,
-    }
-}
-
-const mapDispatch = dispatch=>{
+const mapDispatch = dispatch => {
     return {
         removeItemFromCart(payload) {
           dispatch(removeItem(payload.id));
@@ -63,4 +55,4 @@ const mapDispatch = dispatch=>{
     }
 }
 
-export default compose(withRouter, connect(mapState, mapDispatch))(CartItem)
+export default compose(withRouter, connect(null, mapDispatch))(CartItem)
