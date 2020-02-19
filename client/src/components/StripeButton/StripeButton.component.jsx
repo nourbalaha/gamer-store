@@ -2,8 +2,9 @@ import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import PropTypes from "prop-types";
 import axios from "axios";
+import { connect } from "react-redux";
 
-const StripeButton = ({price}) => {
+const StripeButton = ({price, addFlashMsg}) => {
     const priceForStripe = price * 100;
     const publishableKey = 'pk_test_1bIXOFhsOyxsGjAf7XD46O1t00Q1fYdPHh'
 
@@ -16,11 +17,9 @@ const StripeButton = ({price}) => {
                 token,
             }
         }).then(response => {
-            alert("Payment Successful!")
+            addFlashMsg({msg:"Payment Successful!", type: "success"});
         }).catch(error => {
-            alert(
-                "There was an issue with your payment. Please make sure you use the provided criedit card"
-            )
+            addFlashMsg({msg:"There was an issue with your payment. Please make sure you use the provided criedit card", type: "error"});
         })
     }
         return (
@@ -42,4 +41,12 @@ StripeButton.propTypes = {
     price: PropTypes.number,
 }
 
-export default StripeButton;
+const mapDispatch = dispatch => {
+    return {
+        addFlashMsg(payload){
+            dispatch({type:"ADD_MSG", payload})
+        }
+    }
+}
+
+export default connect(null, mapDispatch)(StripeButton);
