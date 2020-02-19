@@ -1,0 +1,47 @@
+$success-bgcolor:#DDF3D9;
+$success-color:#1A9144;
+$error-bgcolor:#F6DFE0;
+$error-color:#CB373B;
+.msg-container{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    border-radius: 10px;
+    opacity: .7;
+    width: 80vw;
+    margin-bottom: 5px;
+    padding: 10px;
+
+    .msg{
+        font-size: 18px;
+        margin-left: 3vw;
+    }
+    
+    .msg-close{
+        font-size: 32px;
+        margin-right: 3vw;
+        cursor: pointer;
+    }
+}
+.error{
+    background-color: $error-bgcolor;
+    .msg{
+        color: $error-color
+    }
+    .msg-close{
+        color: $error-color
+    }
+}
+.success{
+    background-color: $success-bgcolor;
+    .msg{
+        color: $success-color
+    }
+    .msg-close{
+        color: $success-color
+    }
+    @media screen and (max-width:414px){
+        opacity: 1;
+        top:0;
+    }
+}

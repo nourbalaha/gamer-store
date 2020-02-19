@@ -1,0 +1,99 @@
+$delete-color: #f44336;
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  list-style: none;
+  border-radius: 25px;
+  padding: 10px 30px;
+  margin: 5px;
+  min-width: 400px;
+  .cart-item-image {
+    width: 60px;
+    border-radius: 5px;
+    margin-right: 50px;
+  }
+  .cart-item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .cart-item-name {
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: capitalize;
+      margin-bottom: 10px;
+      cursor: pointer;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+  }
+  .cart-item-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+    .cart-item-remove-button {
+      cursor: pointer;
+      font-size: 14px;
+      padding: 10px;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      background-color: $delete-color;
+      &:hover {
+        color: $delete-color;
+        background-color: white;
+        border: 1px solid $delete-color;
+      }
+    }
+  }
+
+  @media screen and (max-width:640px){
+    padding: 10px;
+    margin: 5px;
+    min-width: 300px;
+    .cart-item-image {
+      width: 40px;
+      margin-right: 10px;
+    }
+    .cart-item-details {
+      .cart-item-name {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+      .cart-item-price{
+        font-size: 14px;
+      }
+      .cart-item-platform{
+        font-size: 14px;
+      }
+      .cart-item-quantity{
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media screen and (max-width:320px){
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 7px;
+    min-width: 85vw;
+    .cart-item-image {
+      display: none;
+    }
+    .cart-item-buttons {
+      margin-left: 0;
+      .cart-item-remove-button {
+        width: 80vw;
+      }
+    }
+  }
+}

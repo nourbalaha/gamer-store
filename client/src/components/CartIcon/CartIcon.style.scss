@@ -1,0 +1,25 @@
+.cart-container{
+    box-sizing: border-box;
+    cursor: pointer;
+    .cart{
+        width: 25px;
+    }
+    .cart-counter{
+        position: relative;
+        right:  16px;
+        bottom:6px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #FD9429;
+    }
+    @media screen and (max-width: 640px){
+        margin-left: 20px;
+        .cart{
+            width: 20px;
+        }
+        .cart-counter{
+            right:  13px;
+            font-size: 9px;
+        }
+    }
+}
