@@ -26,7 +26,7 @@ function cartReducer(state = initial_state, action) {
         cart: newCart,
       };
 
-    case "SET_CART":;
+    case "SET_CART":
       return {
         cart: action.payload,
       };
