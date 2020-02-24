@@ -1,4 +1,4 @@
-![logo](client/src/assets/Logo&#32;white.png)
+![gamer-image](client/src/assets/background.jpg)
 
 Welcome to the Gamer Store e-commerce repository on GitHub.
 Here you can browse the source, look at open issues and keep track of development. 
@@ -17,3 +17,7 @@ Here you can browse the source, look at open issues and keep track of developmen
 * Add new items to the inventory.
 * Update items in the inventory like quantity and prices.
 * Delete items.
+
+### About:
+* Created with love in Tokyo By Nour Balaha.
+* nourbalaha0@gmail.com
