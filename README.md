@@ -1,7 +1,7 @@
-![gamer-image](client/src/assets/background.jpg)
-
 Welcome to the Gamer Store e-commerce repository on GitHub.
 Here you can browse the source, look at open issues and keep track of development. 
+
+![gamer-image](client/src/assets/background.jpg)
 
 ## About Gamer Store:
 * E-commerce shop for selling video games online.
