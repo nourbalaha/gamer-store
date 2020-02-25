@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import "./Dropdown.style.scss";
@@ -8,6 +8,7 @@ import profile from "../../assets/Profile-Placeholder.png"
 import { auth } from "../../firebase/firebase.config";
 
 const Dropdown = ({ addFlashMsg, currentUser, admin }) => {
+  const [display, toggleDisplay] = useState(false);
   const handleSignout = async () => {
     try {
       await auth.signOut();
@@ -17,12 +18,16 @@ const Dropdown = ({ addFlashMsg, currentUser, admin }) => {
     };
   };
 
+  const handleClick = () => {
+    toggleDisplay(!display);
+  }
+
   return (
     <div className="dropdown">
-      <span className="dropbtn">
+      <span className="dropbtn" onClick={handleClick}>
         PROFILE <i className="fa fa-caret-down" />
       </span>
-      <div className="dropdown-content">
+      <div className="dropdown-content" style={{display: display?"block":"none"}}>
           <div className="profile">
         <img
           src={currentUser.photoURL?currentUser.photoURL:profile}
