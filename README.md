@@ -11,7 +11,7 @@ Here you can browse the source, look at open issues and keep track of developmen
 
 ### Admin dashboard can be accessed via signing in using the following user account:
 * Email: admin@gamer-store.com
-* Paassword: admin
+* Paassword: admin123
 
 ### when logging in as admin you can:
 * Add new items to the inventory.
