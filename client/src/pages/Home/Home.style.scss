@@ -1,14 +1,19 @@
 .home-page{
-    background-color: #070024;
-    background-image: url("../../assets/background.jpg");
-    background-position: center;
-    background-size: cover;
     height: 84vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    .particles {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        background-color: #070024;
+        background-image: url("../../assets/background.jpg");
+      }
     .image{
         height: 60vh;
         display: none;
